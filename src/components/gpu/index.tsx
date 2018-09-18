@@ -1,14 +1,77 @@
-import * as React from 'react';
 import './index.css';
+import * as React from 'react';
+import * as cn from 'classnames'
 
-class Gpu extends React.Component {
+import TextField from '@material-ui/core/TextField';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import Select from 'react-select';
+
+import { ISelectListItem } from '../types';
+import { FormField, IFormFieldCssClasses } from '../form-field';
+
+export interface IGpuProps {
+  gpuModelsList: ISelectListItem[];
+  selectedGpu: ISelectListItem;
+  count: number;
+  index: number;
+  onChangeGpu: (listIndex: number, selectedItem: ISelectListItem) => void;
+  onChangeCount: (listIndex: number, value?: number) => void;
+  onClose: (listIndex: number) => void;
+}
+
+const selectFieldCssClasses: IFormFieldCssClasses = {
+  root: 'form-field',
+  label: 'form-field__label',
+  input: 'gpu__full-width',
+  help: 'form-field__help',
+};
+
+export class Gpu extends React.Component<IGpuProps, never> {
   public render() {
     return (
-      <div className="">
-        Gpu
+      <div className="gpu">
+        <FormField
+          className={cn('gpu__full-width', 'gpu__field-model')}
+          cssClasses={selectFieldCssClasses}
+          label="Model"
+          horizontal
+        >
+          <Select
+            options={this.props.gpuModelsList}
+            value={this.props.selectedGpu}
+            onChange={this.handleChangeGpu}
+            placeholder="Search a country (start with a)"
+          />
+        </FormField>
+        <FormField className={cn('gpu__field')} label="Count" horizontal>
+          <TextField
+            className="gpu__input-count"
+            value={this.props.count || ''}
+            onChange={this.handleChangeCount}
+          />
+        </FormField>
+        <IconButton className="gpu__button-close" aria-label="Close" onClick={this.handleClose}>
+          <CloseIcon />
+        </IconButton>
       </div>
     );
   }
+
+  private handleChangeGpu = (selectedItem: ISelectListItem) => {
+    this.props.onChangeGpu(this.props.index, selectedItem);
+  };
+
+  private handleChangeCount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.props.onChangeCount(
+      this.props.index,
+      parseInt(event.target.value, undefined) || undefined,
+    );
+  };
+
+  private handleClose = () => {
+    this.props.onClose(this.props.index);
+  };
 }
 
 export default Gpu;

@@ -1,4 +1,5 @@
 const gpuList = [
+    'None',
     'Afghanistan',
     'Aland Islands',
     'Albania',

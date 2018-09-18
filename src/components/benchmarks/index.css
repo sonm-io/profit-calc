@@ -1,0 +1,16 @@
+.benchmarks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.benchmarks__header {
+  grid-column: 1 / span 2;
+}
+
+.benchmarks__field {
+  --field-label-width: 150px;
+}
+
+.benchmarks__input {
+  width: 150px;
+}

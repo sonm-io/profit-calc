@@ -27,18 +27,17 @@ const helpTextTypes: Array<keyof IFormFieldProps> = ['error', 'info', 'success']
 
 export class FormField extends React.PureComponent<IFormFieldProps, any> {
   
-  public static defaultProps: Partial<IFormFieldProps> = {
-    cssClasses: {
-      root: 'form-field',
-      label: 'form-field__label',
-      input: 'form-field__input',
-      help: 'form-field__help'
-    }
+  public static defaultCssClasses: IFormFieldCssClasses = {
+    root: 'form-field',
+    label: 'form-field__label',
+    input: 'form-field__input',
+    help: 'form-field__help'
   }
 
   public render() {
     const p = this.props;
-    const root = p.cssClasses.root;
+    const cssClasses = p.cssClasses || FormField.defaultCssClasses
+    const root = cssClasses.root;
     let helpText = '';
     let helpTextType = '';
 
@@ -74,16 +73,16 @@ export class FormField extends React.PureComponent<IFormFieldProps, any> {
         onClick={this.handleClick}
       >
         <div
-          className={cn(p.cssClasses.label, {
-            [`${p.cssClasses.label}--nowrap`]: p.horizontal !== true,
+          className={cn(cssClasses.label, {
+            [`${cssClasses.label}--nowrap`]: p.horizontal !== true,
           })}
         >
           {label ? label : ''}
         </div>
-        <div className={p.cssClasses.input} ref={this.saveInputContainerRef}>
+        <div className={cssClasses.input} ref={this.saveInputContainerRef}>
           {p.children}
           {postfix}
-          <div className={p.cssClasses.help}>{helpText}</div>
+          <div className={cssClasses.help}>{helpText}</div>
         </div>
       </label>
     );

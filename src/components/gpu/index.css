@@ -1,0 +1,25 @@
+.gpu {
+    --padding: 10px;
+    display: flex;
+}
+
+.gpu__field-model {
+  margin: auto 10px auto 0;
+}
+
+.gpu__field {
+  margin: auto 0;
+}
+
+.gpu__full-width {
+  width: 100%;
+}
+
+.gpu__input-count {
+    margin: auto 0 auto var(--padding);
+    width: 50px;
+}
+
+.gpu__button-close {
+  margin-bottom: 14px;
+}

@@ -1,0 +1,9 @@
+.results-panel {
+    width: 250px;
+    border: 1px dotted blue;
+}
+
+.results-panel__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
