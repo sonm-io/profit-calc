@@ -1,0 +1,81 @@
+:root {
+  --color-form-field-text: var(--color-font-gray);
+  --color-input-border: var(--color-border);
+  --field-label-width: auto;
+  --sonm-form-field-gap-width: 6px;
+  --sonm-form-field-gap-width-half: 6px / 2;
+  --sonm-form-field-font-size: 14px;
+}
+
+.sonm-form-field {
+  display: block;
+  overflow: visible;
+}
+
+.sonm-form-field--error {
+  color: var(--color-pink);
+  --color-input-underline: var(--color-pink);
+  --color-input-border: var(--color-pink);
+  --color-input-active-border: var(--color-pink);
+  --color-form-field-text: var(--color-pink);
+}
+
+.sonm-form-field--success {
+  color: var(--color-green);
+  --color-input-underline: var(--color-green);
+  --color-input-border: var(--color-green);
+  --color-input-active-border: var(--color-green);
+}
+
+.sonm-form-field--warning {
+  color: var(--color-orange);
+  --color-input-underline: var(--color-orange);
+  --color-input-border: var(--color-orange);
+  --color-input-active-border: var(--color-orange);
+}
+
+.sonm-form-field--info {
+  color: var(--color-blue);
+  --color-input-underline: var(--color-blue);
+  --color-input-active-border: var(--color-blue);
+}
+
+.sonm-form-field--full-width {
+  width: 100%;
+  display: block;
+}
+
+.sonm-form-field--horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.sonm-form-field__help, .sonm-form-field__label {
+  line-height: 100%;
+  height: var(--sonm-form-field-font-size);
+}
+
+.sonm-form-field .sonm-form-field__input>input {
+  border-color: var(--color-input-border);
+}
+
+.sonm-form-field__label {
+  font-weight: 500;
+  margin: 0 var(--sonm-form-field-gap-width) var(--sonm-form-field-gap-width) 0;
+  font-size: var(--sonm-form-field-font-size);
+  color: var(--color-form-field-text);
+  width: var(--field-label-width);
+}
+
+.sonm-form-field__label--nowrap {
+  white-space: nowrap;
+}
+
+.sonm-form-field__help {
+  margin: var(--sonm-form-field-gap-width-half) 0 var(--sonm-form-field-gap-width-half) 0;
+  font-size: var(--sonm-form-field-font-size) - 2px;
+}
+.sonm-form-field__postfix {
+  padding-left: 10px;
+}
