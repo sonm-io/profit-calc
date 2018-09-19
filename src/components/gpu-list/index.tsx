@@ -1,23 +1,22 @@
 import * as React from 'react';
-import { Gpu } from '../gpu';
+import { Gpu, IGpuEvents } from '../gpu';
 import { ISelectListItem } from '../types';
 import './index.css';
 
-export interface IGpuListProps {
+export type TGpuList = Array<{
+  modelIndex: number;
+  count?: number;
+}>;
+
+export interface IGpuListProps extends IGpuEvents {
   gpuModelsList: ISelectListItem[];
-  gpuList: Array<{
-    modelIndex: number;
-    count: number;
-  }>;
-  onChangeGpu: (listIndex: number, selectedItem: ISelectListItem) => void;
-  onChangeCount: (listIndex: number, value?: number) => void;
-  onClose: (listIndex: number) => void;
+  gpuList: TGpuList;
 }
 
 interface IState {
   gpuList: Array<{
     model: ISelectListItem;
-    count: number;
+    count?: number;
   }>;
 }
 
@@ -35,14 +34,14 @@ export class GpuList extends React.Component<IGpuListProps, IState> {
       <div className="gpu-list">
         {this.state.gpuList.map((gpu, index) => (
           <Gpu
-            key={gpu.model.value}
+            key={index}
             index={index}
             gpuModelsList={this.props.gpuModelsList}
             selectedGpu={gpu.model}
             count={gpu.count}
-            onChangeGpu={this.props.onChangeGpu}
-            onChangeCount={this.props.onChangeCount}
-            onClose={this.props.onClose}
+            onChangeGpuModel={this.props.onChangeGpuModel}
+            onChangeGpuCount={this.props.onChangeGpuCount}
+            onRemoveGpu={this.props.onRemoveGpu}
           />
         ))}
       </div>

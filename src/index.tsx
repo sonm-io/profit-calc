@@ -6,6 +6,6 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
   <App />,
-  document.getElementById('profit-cacl') as HTMLElement
+  document.getElementById('profit-calc') as HTMLElement
 );
 registerServiceWorker();
