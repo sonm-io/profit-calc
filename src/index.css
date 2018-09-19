@@ -1,10 +1,4 @@
-.profit-calc {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
-
-.profit-calc {
+#profit-calc {
   --color-downy: #5ec6cb;
   --color-light-blue: var(--color-downy);
     
@@ -62,4 +56,10 @@
         Helvetica, Arial, sans-serif;
     
   --opacity-disabled: 0.6;  
+}
+
+#profit-calc {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
 }
