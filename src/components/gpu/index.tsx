@@ -67,6 +67,7 @@ export class Gpu extends React.Component<IGpuProps, never> {
           <TextField
             className="gpu__input-count"
             type="number"
+            inputProps={{ min: 1 }}
             value={this.props.count || ''}
             onChange={this.handleChangeCount}
           />

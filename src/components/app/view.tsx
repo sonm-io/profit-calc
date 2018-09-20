@@ -28,6 +28,7 @@ export interface IAppValues extends IInputFields {
   cpu: number;
   estimateProfit: TEstimateProfit;
   showBenchmarks: boolean;
+  isPending: boolean;
 }
 
 interface IAppViewProps extends IAppValues, IGpuListProps {
@@ -177,7 +178,7 @@ class AppView extends React.Component<IAppViewProps, never> {
           <ResultsPanel
             className="app__results-panel"
             values={p.estimateProfit}
-            onCalculate={this.props.onCalculate}
+            onCalculate={!p.isPending ? this.props.onCalculate : undefined}
           />
         </div>
       </div>

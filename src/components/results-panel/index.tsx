@@ -8,11 +8,11 @@ export type TEstimateProfit = [string?, string?, string?];
 interface IResultsPanelProps {
   className?: string;
   values: TEstimateProfit;
-  onCalculate: () => void;
+  onCalculate?: () => void;
 }
 
 export class ResultsPanel extends React.Component<IResultsPanelProps, never> {
-  private static Labels = ['1 hour', '24 hour', '30 days'];
+  private static Labels = ['1 hour', '24 hours', '30 days'];
 
   private formatValue = (value?: string) => (value === undefined ? '\u2014' : `$ ${value}`);
 
@@ -35,6 +35,7 @@ export class ResultsPanel extends React.Component<IResultsPanelProps, never> {
         <div className="results-panel__grid">{this.renderValues()}</div>
         <p>* electricity costs are not included</p>
         <Button
+          disabled={this.props.onCalculate === undefined}
           variant="contained"
           color="primary" 
           onClick={this.props.onCalculate}

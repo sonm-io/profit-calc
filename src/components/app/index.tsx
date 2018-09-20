@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { gpuModelsList, cpuModelsList } from '../../data';
+import { gpuList, cpuList, gpuModelsList, cpuModelsList } from '../../data';
 import AppView, { IAppValues, IInputFields } from './view';
 import { ISelectListItem } from '../types';
 
@@ -8,8 +8,8 @@ class App extends React.Component<{}, IAppValues> {
   private static defaultListItem: ISelectListItem = { value: -1, label: 'None' };
   private static defaultGpu = Object.freeze({ model: App.defaultListItem, count: 1 });
 
-  constructor() {
-    super({});
+  constructor(props: {}) {
+    super(props);
     this.state = {
       gpuList: [{...App.defaultGpu}],
       equihash200: '',
@@ -21,7 +21,8 @@ class App extends React.Component<{}, IAppValues> {
       networkOut: '',
       networkPublicIp: '',
       estimateProfit: [undefined, undefined, undefined],
-      showBenchmarks: false
+      showBenchmarks: false,
+      isPending: false
     }
   }
 
@@ -64,8 +65,72 @@ class App extends React.Component<{}, IAppValues> {
     this.setState({ cpu: item.value });
   }
   
+  private computeGpuBenchmarks = () => {
+    const s = this.state;
+    const selectedGpus = s.gpuList.filter(gpu => gpu.model.value > -1);
+    const count = gpuList.reduce((acc, gpu) => acc + (gpu.count||1), 0);
+    const aggregatedBenchmarks = selectedGpus
+      .reduce((acc, gpu) => {
+        const gpuModel = gpuList[gpu.model.value];
+        return {
+          'gpu-eth-hashrate': acc['gpu-eth-hashrate'] + parseInt(gpuModel.benchmarks['gpu-eth-hashrate'], 0),
+          'gpu-cash-hashrate': acc['gpu-cash-hashrate'] + parseInt(gpuModel.benchmarks['gpu-cash-hashrate'], 0),
+          'gpu-mem': acc['gpu-mem'] + parseInt(gpuModel.benchmarks['gpu-mem'], 0),
+        }
+      },
+      {
+        'gpu-eth-hashrate':  0,
+        'gpu-cash-hashrate': 0,
+        'gpu-mem': 0,
+      });
+    return {
+      ...aggregatedBenchmarks,
+      "gpu-count": count
+    }
+  }
+
+  private getRequest = () => {
+    const s = this.state;
+    const cpu = cpuList[s.cpu].benchmarks;
+    return {
+      "network": {
+        "overlay": s.networkPublicIp,
+        "outbound": true,
+        "incoming": true
+      },
+      "benchmarks": {
+        "ram-size": s.ram,
+        "storage-size": s.storage,
+        "net-download": s.networkIn,
+        "net-upload": s.networkOut,
+        ...this.computeGpuBenchmarks(),
+        ...cpu
+      }
+    }
+  }
+
   private handleCalculate = () => {
-    console.log('calc');
+    this.setState({ isPending: true });
+    const addrs = {
+      test: 'https://node-testnet.sonm.com:443/OrderPredictorServer/Predict/',
+      live: 'https://node.livenet.sonm.com:443/OrderPredictorServer/Predict/'
+    };
+    const url = addrs.live;
+    const data = this.getRequest();
+    
+    fetch(url, {
+        method: "POST",
+        mode: "no-cors",
+        redirect: "follow",
+        body: JSON.stringify(data),
+    }).then(res => {
+      this.setState({ 
+        estimateProfit : ['1', '1', '1'],
+        isPending: false
+      });
+    }).catch((err) => { 
+      console.log(err);
+    });
   }
 
 
