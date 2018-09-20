@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { gpuListMapped } from '../../data';
+import { gpuModelsList, cpuModelsList } from '../../data';
 import AppView, { IAppValues, IInputFields } from './view';
 import { ISelectListItem } from '../types';
 
@@ -14,7 +14,7 @@ class App extends React.Component<{}, IAppValues> {
       gpuList: [{...App.defaultGpu}],
       equihash200: '',
       ethhash: '',
-      cpu: 0,
+      cpu: 1,
       ram: '',
       storage: '',
       networkIn: '',
@@ -73,8 +73,8 @@ class App extends React.Component<{}, IAppValues> {
     const s = this.state;
     return (
       <AppView
-        gpuModelsList={gpuListMapped}
-        cpuModelsList={gpuListMapped}
+        gpuModelsList={gpuModelsList}
+        cpuModelsList={cpuModelsList}
         {...s}
         onChangeGpuModel={this.handleChangeGpuModel}
         onChangeGpuCount={this.handleChangeGpuCount}

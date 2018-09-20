@@ -17,13 +17,13 @@ export class ResultsPanel extends React.Component<IResultsPanelProps, never> {
   private formatValue = (value?: string) => (value === undefined ? '\u2014' : `$ ${value}`);
 
   private renderValue = (label: string, value: string) => (
-    <React.Fragment>
+    <React.Fragment key={label}>
       <div>{label}:</div>
       <div>{value}</div>
     </React.Fragment>
   );
 
-  private renderValues = () =>
+  private renderValues = () => 
     ResultsPanel.Labels.map((label, i) =>
       this.renderValue(label, this.formatValue(this.props.values[i])),
     );

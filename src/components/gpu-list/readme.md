@@ -1,7 +1,7 @@
 
 
 ```js
-const { gpuListMapped } = require('../../data');
+const { gpuModelsList } = require('../../data');
 
 const gpuList = [
   { modelIndex: 0, count: 1 },
@@ -11,7 +11,7 @@ const gpuList = [
 ];
 
 <GpuList
-  gpuModelsList={gpuListMapped}
+  gpuModelsList={gpuModelsList}
   gpuList={gpuList}
 />
 ```

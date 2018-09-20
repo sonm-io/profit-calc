@@ -1,12 +1,12 @@
 ```jsx
 const React = require('react');
 
-const { gpuListMapped } = require('../../data');
+const { gpuModelsList } = require('../../data');
 
 class Container extends React.Component {
   constructor() {
     this.state = {
-      selectedGpu: gpuListMapped[0],
+      selectedGpu: gpuModelsList[0],
       count: 1,
     };
 
@@ -25,7 +25,7 @@ class Container extends React.Component {
   render() {
     return (
       <Gpu
-        gpuModelsList={gpuListMapped}
+        gpuModelsList={gpuModelsList}
         selectedGpu={this.state.selectedGpu}
         count={this.state.count}
         onSelectGpu={this.handleSelectGpu}

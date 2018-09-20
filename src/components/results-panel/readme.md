@@ -1,3 +1,3 @@
 ```js
-<ResultsPanel />
+<ResultsPanel values={[undefined, undefined, undefined]} />
 ```
