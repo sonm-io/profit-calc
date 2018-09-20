@@ -32,6 +32,10 @@
   width: 100%;
 }
 
+.app__switch-benchmarks-link {
+  margin: 0 0 0 -16px !important;
+}
+
 .app__add-gpu-link {
   float: right;
   margin: 0 15px 0 0;

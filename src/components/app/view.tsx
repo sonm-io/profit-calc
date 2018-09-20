@@ -59,7 +59,11 @@ class AppView extends React.Component<IAppViewProps, never> {
   private renderBenchmarksVisibilityTrigger = () => {
     const label = this.props.showBenchmarks ? 'Hide benchmarks' : 'Show benchmarks';
     return (
-      <Button color="primary" onClick={this.props.onSwitchBenchmarkVisibility}>
+      <Button
+        className="app__switch-benchmarks-link"
+        color="primary"
+        onClick={this.props.onSwitchBenchmarkVisibility}
+      >
         {label}
       </Button>
     );
