@@ -76,6 +76,7 @@ class AppView extends React.Component<IAppViewProps, never> {
         <FormField className="app__ram-field" horizontal label="RAM, GB">
           <TextField
             className="app__ram-n-storage-input"
+            type="number"
             name="ram"
             value={p.ram}
             onChange={this.handleChangeInput}
@@ -84,6 +85,7 @@ class AppView extends React.Component<IAppViewProps, never> {
         <FormField horizontal label="Storage, GB">
           <TextField
             className="app__ram-n-storage-input"
+            type="number"
             name="storage"
             value={p.storage}
             onChange={this.handleChangeInput}
@@ -100,6 +102,7 @@ class AppView extends React.Component<IAppViewProps, never> {
         <FormField className="app__network-field" horizontal label="IN">
           <TextField
             className="app__network-input"
+            type="number"
             name="networkIn"
             value={p.networkIn}
             onChange={this.handleChangeInput}
@@ -108,6 +111,7 @@ class AppView extends React.Component<IAppViewProps, never> {
         <FormField className="app__network-field" horizontal label="OUT">
           <TextField
             className="app__network-input"
+            type="number"
             name="networkOut"
             value={p.networkOut}
             onChange={this.handleChangeInput}

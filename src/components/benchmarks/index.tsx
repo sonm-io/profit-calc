@@ -21,6 +21,7 @@ class Benchmarks extends React.Component<IBenchmarksProps, never> {
         <FormField label="Ethash, Mh/s" horizontal>
           <TextField
             className="benchmarks__input"
+            type="number"
             value={p.ethhash}
             name="ethhash"
             onChange={this.handleChange}
@@ -29,6 +30,7 @@ class Benchmarks extends React.Component<IBenchmarksProps, never> {
         <FormField className="benchmarks__col2" label="Equihash (200_9), H/s" horizontal>
           <TextField
             className="benchmarks__input"
+            type="number"
             value={p.equihash200}
             name="equihash200"
             onChange={this.handleChange}
