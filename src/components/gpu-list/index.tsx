@@ -3,36 +3,22 @@ import { Gpu, IGpuEvents } from '../gpu';
 import { ISelectListItem } from '../types';
 import './index.css';
 
-export type TGpuList = Array<{
-  modelIndex: number;
+export interface IGpu {
+  model: ISelectListItem;
   count?: number;
-}>;
+};
 
 export interface IGpuListProps extends IGpuEvents {
   gpuModelsList: ISelectListItem[];
-  gpuList: TGpuList;
+  gpuList: IGpu[];
 }
 
-interface IState {
-  gpuList: Array<{
-    model: ISelectListItem;
-    count?: number;
-  }>;
-}
-
-export class GpuList extends React.Component<IGpuListProps, IState> {
-  public static getDerivedStateFromProps(props: IGpuListProps): IState {
-    const gpuList = props.gpuList.map(gpu => ({
-      model: props.gpuModelsList[gpu.modelIndex],
-      count: gpu.count,
-    }));
-    return { gpuList };
-  }
+export class GpuList extends React.Component<IGpuListProps, never> {
 
   public render() {
     return (
       <div className="gpu-list">
-        {this.state.gpuList.map((gpu, index) => (
+        {this.props.gpuList.map((gpu, index) => (
           <Gpu
             key={index}
             index={index}

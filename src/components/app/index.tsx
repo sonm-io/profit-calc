@@ -5,10 +5,13 @@ import { ISelectListItem } from '../types';
 
 class App extends React.Component<{}, IAppValues> {
 
+  private static defaultListItem: ISelectListItem = { value: -1, label: 'None' };
+  private static defaultGpu = Object.freeze({ model: App.defaultListItem, count: 1 });
+
   constructor() {
     super({});
     this.state = {
-      gpuList: [{ modelIndex: 0 }],
+      gpuList: [{...App.defaultGpu}],
       equihash200: '',
       ethhash: '',
       cpu: 0,
@@ -25,7 +28,7 @@ class App extends React.Component<{}, IAppValues> {
   //#region GPU
   private handleChangeGpuModel = (listIndex: number, selectedItem: ISelectListItem) => {
     const list = [...this.state.gpuList];
-    list[listIndex].modelIndex = selectedItem.value;
+    list[listIndex].model = selectedItem;
     this.setState({gpuList: list});
   }
 
@@ -43,7 +46,7 @@ class App extends React.Component<{}, IAppValues> {
 
   private handleAddGpu = () => {
     const list = [...this.state.gpuList];
-    list.push({ modelIndex: 0 });
+    list.push({...App.defaultGpu});
     this.setState({gpuList: list});
   }
   //#endregion
