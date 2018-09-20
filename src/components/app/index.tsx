@@ -24,23 +24,18 @@ class App extends React.Component<{}, IAppValues> {
 
   //#region GPU
   private handleChangeGpuModel = (listIndex: number, selectedItem: ISelectListItem) => {
-    console.log(listIndex);
-    console.log(selectedItem);
     const list = [...this.state.gpuList];
     list[listIndex].modelIndex = selectedItem.value;
     this.setState({gpuList: list});
   }
 
   private handleChangeGpuCount = (listIndex: number, value?: number) => {
-    console.log(listIndex);
-    console.log(value);
     const list = [...this.state.gpuList];
     list[listIndex].count = value;
     this.setState({gpuList: list});
   }
 
   private handleRemoveGpu = (listIndex: number) => {
-    console.log(listIndex);
     const list = [...this.state.gpuList];
     list.splice(listIndex, 1);
     this.setState({gpuList: list});
