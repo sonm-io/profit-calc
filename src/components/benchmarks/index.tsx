@@ -30,7 +30,7 @@ class Benchmarks extends React.Component<IBenchmarksProps, never> {
           <TextField
             className="benchmarks__input"
             value={p.equihash200}
-            name="cryptohigh"
+            name="equihash200"
             onChange={this.handleChange}
           />
         </FormField>
@@ -38,7 +38,7 @@ class Benchmarks extends React.Component<IBenchmarksProps, never> {
           <TextField
             className="benchmarks__input"
             value={p.cryptohigh}
-            name="equihash200"
+            name="cryptohigh"
             onChange={this.handleChange}
           />
         </FormField>
