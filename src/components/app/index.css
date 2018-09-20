@@ -1,28 +1,73 @@
-.App {
-  text-align: center;
+.app {
+  max-width: 1000px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.app__header {
+  margin-bottom: 33px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.app__header:not(:first-child) {
+  margin: 40px 15px 33px 0;
+  padding: 40px 0 0 0;
+  border-top: 1px solid #e8eef4;
 }
 
-.App-title {
-  font-size: 1.5em;
+.app__separator {
+  margin: 40px 15px 0 0;
+  padding: 40px 0 0 0;
+  border-top: 1px solid #e8eef4;
 }
 
-.App-intro {
-  font-size: large;
+.app__container {
+  display: flex;
+  flex-direction: row;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.app__main-panel {
+  width: 100%;
+}
+
+.app__add-gpu-link {
+  float: right;
+  margin: 0 15px 0 0;
+}
+
+.app__cpu-field {
+  --field-label-width: 100px;
+}
+
+.app__cpu-select {
+  width: 100%;
+}
+
+.app__ram-field {
+  --field-label-width: 100px;
+  margin: 0 50px 0 0;
+}
+
+.app__ram-n-storage {
+  display: flex;
+  flex-direction: row;
+}
+
+.app__ram-n-storage-input {
+  width: 100px;
+}
+
+.app__network {
+  display: flex;
+  flex-direction: row;
+}
+
+.app__network-field:not(:last-child) {
+  margin: 0 50px 0 0;
+}
+
+.app__network-input {
+  width: 70px;
+}
+
+.app__results-panel {
+  height: 100%;
+  margin: 0 0 0 10px;
 }

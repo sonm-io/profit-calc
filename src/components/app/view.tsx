@@ -6,7 +6,7 @@ import Select from 'react-select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 // local
 import './index.css';
-import FormField from '../form-field';
+import FormField, { IFormFieldCssClasses } from '../form-field';
 import Benchmarks from '../benchmarks';
 import { GpuList, IGpuListProps, TGpuList } from '../gpu-list';
 import { ResultsPanel, TEstimateProfit } from '../results-panel';
@@ -40,9 +40,11 @@ interface IAppViewProps extends IAppValues, IGpuListProps {
 }
 
 class AppView extends React.Component<IAppViewProps, never> {
-  private renderBenchmarksVisibilityTrigger = () => {
-    const label = this.props.showBenchmarks ? 'Hide benchmarks' : 'Show benchmarks';
-    return <a href="#" onClick={this.props.onSwitchBenchmarkVisibility}>{label}</a>;
+  private static CpuCssClasses: IFormFieldCssClasses = {
+    root: 'form-field',
+    label: 'form-field__label',
+    input: 'app__cpu-select',
+    help: 'form-field__help',
   };
 
   private handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,20 +55,95 @@ class AppView extends React.Component<IAppViewProps, never> {
     this.props.onChange(event.target.name as keyof (IInputFields), checked);
   };
 
-  public render() {
+  private renderBenchmarksVisibilityTrigger = () => {
+    const label = this.props.showBenchmarks ? 'Hide benchmarks' : 'Show benchmarks';
+    return (
+      <a href="#" onClick={this.props.onSwitchBenchmarkVisibility}>
+        {label}
+      </a>
+    );
+  };
+
+  private renderRamAndStorage = () => {
     const p = this.props;
     return (
-      <div className="app">
-        <h1>Profitability calculator</h1>
-        <h3>GPU</h3>
+      <div className="app__ram-n-storage">
+        <FormField className="app__ram-field" horizontal label="RAM, GB">
+          <TextField
+            className="app__ram-n-storage-input"
+            name="ram"
+            value={p.ram}
+            onChange={this.handleChangeInput}
+          />
+        </FormField>
+        <FormField horizontal label="Storage, GB">
+          <TextField
+            className="app__ram-n-storage-input"
+            name="storage"
+            value={p.storage}
+            onChange={this.handleChangeInput}
+          />
+        </FormField>
+      </div>
+    );
+  };
+
+  private renderNetwork = () => {
+    const p = this.props;
+    return (
+      <div className="app__network">
+        <FormField className="app__network-field" horizontal label="IN">
+          <TextField
+            className="app__network-input"
+            name="networkIn"
+            value={p.networkIn}
+            onChange={this.handleChangeInput}
+          />
+        </FormField>
+        <FormField className="app__network-field" horizontal label="OUT">
+          <TextField
+            className="app__network-input"
+            name="networkOut"
+            value={p.networkOut}
+            onChange={this.handleChangeInput}
+          />
+        </FormField>
+        <FormControlLabel
+          className="app__network-field"
+          control={
+            <Checkbox
+              name="networkPublicIp"
+              checked={p.networkPublicIp}
+              onChange={this.handleChangeCheckbox}
+              color="primary"
+              disableRipple={true}
+            />
+          }
+          label="Public IP"
+        />
+      </div>
+    );
+  };
+
+  private renderMain = () => {
+    const p = this.props;
+    return (
+      <div className="app__main-panel">
+        <h3 className="app__header">GPU</h3>
         <GpuList {...p} />
         {this.renderBenchmarksVisibilityTrigger()}
-        <a href="#" onClick={p.onAddGpu}>Add card</a>
-        { 
-          p.showBenchmarks &&
+        <a className="app__add-gpu-link" href="#" onClick={p.onAddGpu}>
+          Add card
+        </a>
+        {p.showBenchmarks && (
           <Benchmarks equihash200={p.equihash200} ethhash={p.ethhash} onChange={p.onChange} />
-        }
-        <FormField horizontal label="CPU level">
+        )}
+        <FormField
+          className="app__cpu-field app__separator"
+          cssClasses={AppView.CpuCssClasses}
+          horizontal
+          label="CPU level"
+        >
           <Select
             placeholder="Select your CPU"
             options={p.cpuModelsList}
@@ -74,30 +151,26 @@ class AppView extends React.Component<IAppViewProps, never> {
             onChange={p.onChangeCpu}
           />
         </FormField>
-        <FormField horizontal label="RAM, GB">
-          <TextField name="ram" value={p.ram} onChange={this.handleChangeInput} />
-        </FormField>
-        <FormField horizontal label="Storage, GB">
-          <TextField name="storage" value={p.storage} onChange={this.handleChangeInput} />
-        </FormField>
-        <h3>Internet connection, Mbps</h3>
-        <FormField horizontal label="IN">
-          <TextField name="networkIn" value={p.networkIn} onChange={this.handleChangeInput} />
-        </FormField>
-        <FormField horizontal label="OUT">
-          <TextField name="networkOut" value={p.networkOut} onChange={this.handleChangeInput} />
-        </FormField>
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="networkPublicIp"
-              checked={p.networkPublicIp}
-              onChange={this.handleChangeCheckbox}
-            />
-          }
-          label="Public IP"
-        />
-        <ResultsPanel values={p.estimateProfit} onCalculate={this.props.onCalculate} />
+        {this.renderRamAndStorage()}
+        <h3 className="app__header">Internet connection, Mbps</h3>
+        {this.renderNetwork()}
+      </div>
+    );
+  };
+
+  public render() {
+    const p = this.props;
+    return (
+      <div className="app">
+        <h1>Profitability calculator</h1>
+        <div className="app__container">
+          {this.renderMain()}
+          <ResultsPanel
+            className="app__results-panel"
+            values={p.estimateProfit}
+            onCalculate={this.props.onCalculate}
+          />
+        </div>
       </div>
     );
   }

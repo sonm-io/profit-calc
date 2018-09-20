@@ -1,10 +1,12 @@
 import Button from '@material-ui/core/Button';
 import * as React from 'react';
 import './index.css';
+import * as cn from 'classnames';
 
 export type TEstimateProfit = [string?, string?, string?];
 
 interface IResultsPanelProps {
+  className?: string;
   values: TEstimateProfit;
   onCalculate: () => void;
 }
@@ -28,7 +30,7 @@ export class ResultsPanel extends React.Component<IResultsPanelProps, never> {
 
   public render() {
     return (
-      <div className="results-panel">
+      <div className={cn('results-panel', this.props.className)}>
         <h3>Estimated income</h3>
         <div className="results-panel__grid">{this.renderValues()}</div>
         <p>* electricity costs are not included</p>

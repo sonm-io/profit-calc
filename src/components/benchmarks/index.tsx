@@ -18,7 +18,7 @@ class Benchmarks extends React.Component<IBenchmarksProps, never> {
     return (
       <div className="benchmarks">
         <h3 className="benchmarks__header">Mining algo benchmarks</h3>
-        <FormField className="benchmarks__field" label="Ethash, Mh/s" horizontal>
+        <FormField label="Ethash, Mh/s" horizontal>
           <TextField
             className="benchmarks__input"
             value={p.ethhash}
@@ -26,7 +26,7 @@ class Benchmarks extends React.Component<IBenchmarksProps, never> {
             onChange={this.handleChange}
           />
         </FormField>
-        <FormField className="benchmarks__field" label="Equihash (200_9), H/s" horizontal>
+        <FormField className="benchmarks__col2" label="Equihash (200_9), H/s" horizontal>
           <TextField
             className="benchmarks__input"
             value={p.equihash200}
@@ -34,7 +34,7 @@ class Benchmarks extends React.Component<IBenchmarksProps, never> {
             onChange={this.handleChange}
           />
         </FormField>
-        {/* <FormField className="benchmarks__field" label="Cryptohigh V7, H/s" horizontal>
+        {/* <FormField label="Cryptohigh V7, H/s" horizontal>
           <TextField
             className="benchmarks__input"
             value={p.cryptohigh}
@@ -42,7 +42,7 @@ class Benchmarks extends React.Component<IBenchmarksProps, never> {
             onChange={this.handleChange}
           />
         </FormField>
-        <FormField className="benchmarks__field" label="Equihash (144_5), H/s" horizontal>
+        <FormField label="Equihash (144_5), H/s" horizontal>
           <TextField
             className="benchmarks__input"
             value={p.equihash144}

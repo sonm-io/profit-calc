@@ -1,6 +1,6 @@
 .gpu {
-    --padding: 10px;
-    display: flex;
+  --padding: 10px;
+  display: flex;
 }
 
 .gpu__field-model {
@@ -16,8 +16,8 @@
 }
 
 .gpu__input-count {
-    margin: auto 0 auto var(--padding);
-    width: 50px;
+  margin: auto 0 auto var(--padding);
+  width: 50px;
 }
 
 .gpu__button-close {

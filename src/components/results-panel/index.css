@@ -1,6 +1,7 @@
 .results-panel {
     width: 250px;
-    border: 1px dotted blue;
+    padding: 24px;
+    background-color: #f2f7fa;
 }
 
 .results-panel__grid {
