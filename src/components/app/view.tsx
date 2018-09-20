@@ -9,27 +9,10 @@ import Button from '@material-ui/core/Button';
 import './index.css';
 import FormField, { IFormFieldCssClasses } from '../form-field';
 import Benchmarks from '../benchmarks';
-import { GpuList, IGpuListProps, IGpu } from '../gpu-list';
-import { ResultsPanel, TEstimateProfit } from '../results-panel';
+import { GpuList, IGpuListProps } from '../gpu-list';
+import { ResultsPanel } from '../results-panel';
 import { ISelectListItem } from '../types';
-
-export interface IInputFields {
-  equihash200: string;
-  ethhash: string;
-  ram: string;
-  storage: string;
-  networkIn: string;
-  networkOut: string;
-  networkPublicIp: string;
-}
-
-export interface IAppValues extends IInputFields {
-  gpuList: IGpu[];
-  cpu: number;
-  estimateProfit: TEstimateProfit;
-  showBenchmarks: boolean;
-  isPending: boolean;
-}
+import { IInputFields, IAppValues } from './types';
 
 interface IAppViewProps extends IAppValues, IGpuListProps {
   cpuModelsList: ISelectListItem[];
