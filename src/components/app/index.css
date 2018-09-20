@@ -1,6 +1,9 @@
 .app {
   max-width: 1000px;
+  margin: auto;
 }
+
+/*#region Headers and separators  */
 
 .app__header {
   margin-bottom: 33px;
@@ -17,6 +20,8 @@
   padding: 40px 0 0 0;
   border-top: 1px solid #e8eef4;
 }
+
+/*#endregion*/
 
 .app__container {
   display: flex;
@@ -60,7 +65,7 @@
 }
 
 .app__network-field:not(:last-child) {
-  margin: 0 50px 0 0;
+  margin: 7px 50px 0 0;
 }
 
 .app__network-input {

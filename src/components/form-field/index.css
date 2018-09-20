@@ -65,7 +65,7 @@
   margin: 0 var(--form-field-gap-width) var(--form-field-gap-width) 0;
   font-size: var(--form-field-font-size);
   color: var(--color-form-field-text);
-  width: var(--field-label-width);
+  min-width: var(--field-label-width);
   white-space: nowrap;
 }
 

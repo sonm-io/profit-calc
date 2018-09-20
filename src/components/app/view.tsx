@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Select from 'react-select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
 // local
 import './index.css';
 import FormField, { IFormFieldCssClasses } from '../form-field';
@@ -58,9 +59,9 @@ class AppView extends React.Component<IAppViewProps, never> {
   private renderBenchmarksVisibilityTrigger = () => {
     const label = this.props.showBenchmarks ? 'Hide benchmarks' : 'Show benchmarks';
     return (
-      <a href="#" onClick={this.props.onSwitchBenchmarkVisibility}>
+      <Button color="primary" onClick={this.props.onSwitchBenchmarkVisibility}>
         {label}
-      </a>
+      </Button>
     );
   };
 
@@ -132,9 +133,9 @@ class AppView extends React.Component<IAppViewProps, never> {
         <h3 className="app__header">GPU</h3>
         <GpuList {...p} />
         {this.renderBenchmarksVisibilityTrigger()}
-        <a className="app__add-gpu-link" href="#" onClick={p.onAddGpu}>
+        <Button color="primary" className="app__add-gpu-link" onClick={p.onAddGpu}>
           Add card
-        </a>
+        </Button>
         {p.showBenchmarks && (
           <Benchmarks equihash200={p.equihash200} ethhash={p.ethhash} onChange={p.onChange} />
         )}

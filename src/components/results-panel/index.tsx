@@ -34,7 +34,13 @@ export class ResultsPanel extends React.Component<IResultsPanelProps, never> {
         <h3>Estimated income</h3>
         <div className="results-panel__grid">{this.renderValues()}</div>
         <p>* electricity costs are not included</p>
-        <Button onClick={this.props.onCalculate}>Calculate</Button>
+        <Button
+          variant="contained"
+          color="primary" 
+          onClick={this.props.onCalculate}
+          >
+          Calculate
+        </Button>
       </div>
     );
   }
