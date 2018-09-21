@@ -1,16 +1,17 @@
 import { gpuList, cpuList } from '../../data';
 import { IAppValues } from './types';
 
-const computeGpuBenchmarks = (s: IAppValues) => {
+export const computeGpuBenchmarks = (s: IAppValues) => {
   const selectedGpus = s.gpuList.filter(gpu => gpu.model.value > -1);
-  const count: number = gpuList.reduce((acc, gpu) => acc + (gpu.count||1), 0);
+  const countAll: number = gpuList.reduce((acc, gpu) => acc + (gpu.count||1), 0);
   const aggregatedBenchmarks = selectedGpus
     .reduce((acc, gpu) => {
       const gpuModel = gpuList[gpu.model.value];
+      const count = gpu.count||1;
       return {
-        'gpu-eth-hashrate': acc['gpu-eth-hashrate'] + parseInt(gpuModel.benchmarks['gpu-eth-hashrate'], 0) * 1000 * 1000,
-        'gpu-cash-hashrate': acc['gpu-cash-hashrate'] + parseInt(gpuModel.benchmarks['gpu-cash-hashrate'], 0),
-        'gpu-mem': acc['gpu-mem'] + parseInt(gpuModel.benchmarks['gpu-mem'], 0),
+        'gpu-eth-hashrate': acc['gpu-eth-hashrate'] + parseInt(gpuModel.benchmarks['gpu-eth-hashrate'], 0) * 1000 * 1000 * count,
+        'gpu-cash-hashrate': acc['gpu-cash-hashrate'] + parseInt(gpuModel.benchmarks['gpu-cash-hashrate'], 0) * count,
+        'gpu-mem': acc['gpu-mem'] + parseInt(gpuModel.benchmarks['gpu-mem'], 0) * count,
       }
     },
     {
@@ -20,7 +21,7 @@ const computeGpuBenchmarks = (s: IAppValues) => {
     });
   return {
     ...aggregatedBenchmarks,
-    "gpu-count": count
+    "gpu-count": countAll
   }
 }
 
