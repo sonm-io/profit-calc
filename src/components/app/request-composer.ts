@@ -3,7 +3,7 @@ import { IAppValues } from './types';
 
 const computeGpuBenchmarks = (s: IAppValues) => {
   const selectedGpus = s.gpuList.filter(gpu => gpu.model.value > -1);
-  const count = gpuList.reduce((acc, gpu) => acc + (gpu.count||1), 0);
+  const count: number = gpuList.reduce((acc, gpu) => acc + (gpu.count||1), 0);
   const aggregatedBenchmarks = selectedGpus
     .reduce((acc, gpu) => {
       const gpuModel = gpuList[gpu.model.value];
@@ -24,8 +24,16 @@ const computeGpuBenchmarks = (s: IAppValues) => {
   }
 }
 
+const getCpuBenchmarks = (cpu: any) => {
+  return {
+    'cpu-sysbench-multi': parseInt(cpu['cpu-sysbench-multi'], 0),
+    'cpu-sysbench-single': parseInt(cpu['cpu-sysbench-single'], 0),
+    'cpu-cores': parseInt(cpu['cpu-cores'], 0)
+  }
+}
+
 export const getRequest = (s: IAppValues) => {
-  const cpu = cpuList[s.cpu].benchmarks;
+  const cpu = getCpuBenchmarks(cpuList[s.cpu].benchmarks);
   return {
     "network": {
       "overlay": s.networkPublicIp,
@@ -33,10 +41,10 @@ export const getRequest = (s: IAppValues) => {
       "incoming": true
     },
     "benchmarks": {
-      "ram-size": s.ram,
-      "storage-size": s.storage,
-      "net-download": s.networkIn,
-      "net-upload": s.networkOut,
+      "ram-size":  parseInt(s.ram, 0),
+      "storage-size": parseInt(s.storage, 0),
+      "net-download": parseInt(s.networkIn, 0),
+      "net-upload": parseInt(s.networkOut, 0),
       ...computeGpuBenchmarks(s),
       ...cpu
     }

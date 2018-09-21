@@ -8,7 +8,7 @@ export interface IInputFields {
   storage: string;
   networkIn: string;
   networkOut: string;
-  networkPublicIp: string;
+  networkPublicIp: boolean;
 }
 
 export interface IAppValues extends IInputFields {
