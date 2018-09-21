@@ -4,6 +4,7 @@ import AppView from './view';
 import { IInputFields, IAppValues } from './types';
 import { ISelectListItem } from '../types';
 import { getRequest } from './request-composer';
+import { getEstimateProfit } from './response-parser';
 
 class App extends React.Component<{}, IAppValues> {
 
@@ -78,16 +79,21 @@ class App extends React.Component<{}, IAppValues> {
     
     fetch(url, {
         method: "POST",
-        mode: "no-cors",
         redirect: "follow",
         body: JSON.stringify(data),
-    }).then(res => {
+    }).then(response => {
+      return response.json();
+    }).then(json => {
       this.setState({ 
-        estimateProfit : ['1', '1', '1'],
+        estimateProfit: getEstimateProfit(json.perSecond),
         isPending: false
       });
     }).catch((err) => { 
       console.log(err);
+      this.setState({ 
+        estimateProfit: [undefined, undefined, undefined],
+        isPending: false
+      });
     });
   }
 

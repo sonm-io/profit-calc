@@ -8,7 +8,7 @@ const computeGpuBenchmarks = (s: IAppValues) => {
     .reduce((acc, gpu) => {
       const gpuModel = gpuList[gpu.model.value];
       return {
-        'gpu-eth-hashrate': acc['gpu-eth-hashrate'] + parseInt(gpuModel.benchmarks['gpu-eth-hashrate'], 0),
+        'gpu-eth-hashrate': acc['gpu-eth-hashrate'] + parseInt(gpuModel.benchmarks['gpu-eth-hashrate'], 0) * 1000 * 1000,
         'gpu-cash-hashrate': acc['gpu-cash-hashrate'] + parseInt(gpuModel.benchmarks['gpu-cash-hashrate'], 0),
         'gpu-mem': acc['gpu-mem'] + parseInt(gpuModel.benchmarks['gpu-mem'], 0),
       }
@@ -41,10 +41,10 @@ export const getRequest = (s: IAppValues) => {
       "incoming": true
     },
     "benchmarks": {
-      "ram-size":  parseInt(s.ram, 0),
-      "storage-size": parseInt(s.storage, 0),
-      "net-download": parseInt(s.networkIn, 0),
-      "net-upload": parseInt(s.networkOut, 0),
+      "ram-size":  parseInt(s.ram, 0) * 1024 * 1024,
+      "storage-size": parseInt(s.storage, 0) * 1024 * 1024,
+      "net-download": parseInt(s.networkIn, 0) * 1024,
+      "net-upload": parseInt(s.networkOut, 0) * 1024,
       ...computeGpuBenchmarks(s),
       ...cpu
     }
