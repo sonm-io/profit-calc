@@ -3,7 +3,7 @@ import { gpuModelsList, cpuModelsList } from '../../data';
 import AppView from './view';
 import { IInputFields, IAppValues } from './types';
 import { ISelectListItem } from '../types';
-import { getRequest } from './request-composer';
+import { getRequest, computeGpuBenchmarks } from './request-composer';
 import { getEstimateProfit } from './response-parser';
 
 class App extends React.Component<{}, IAppValues> {
@@ -15,8 +15,8 @@ class App extends React.Component<{}, IAppValues> {
     super(props);
     this.state = {
       gpuList: [{...App.defaultGpu}],
-      equihash200: '',
       ethhash: '',
+      equihash200: '',
       cpu: 1,
       ram: '8',
       storage: '20',
@@ -34,24 +34,37 @@ class App extends React.Component<{}, IAppValues> {
     const list = [...this.state.gpuList];
     list[listIndex].model = selectedItem;
     this.setState({gpuList: list});
+    this.updateGpuBenchmarkInputFields();
   }
 
   private handleChangeGpuCount = (listIndex: number, value?: number) => {
     const list = [...this.state.gpuList];
     list[listIndex].count = value;
     this.setState({gpuList: list});
+    this.updateGpuBenchmarkInputFields();
   }
 
   private handleRemoveGpu = (listIndex: number) => {
     const list = [...this.state.gpuList];
     list.splice(listIndex, 1);
     this.setState({gpuList: list});
+    this.updateGpuBenchmarkInputFields();
   }
 
   private handleAddGpu = () => {
     const list = [...this.state.gpuList];
     list.push({...App.defaultGpu});
     this.setState({gpuList: list});
+    this.updateGpuBenchmarkInputFields();
+  }
+
+  private updateGpuBenchmarkInputFields = () => {
+    const bmarks = computeGpuBenchmarks(this.state);
+    const update: any = {
+      ethhash: bmarks['gpu-eth-hashrate'] / 1000 / 1000,
+      equihash200: bmarks['gpu-cash-hashrate']
+    }
+    this.setState(update as Pick<IInputFields, keyof IInputFields>);
   }
   //#endregion
 
