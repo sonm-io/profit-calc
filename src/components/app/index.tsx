@@ -33,29 +33,25 @@ class App extends React.Component<{}, IAppValues> {
   private handleChangeGpuModel = (listIndex: number, selectedItem: ISelectListItem) => {
     const list = [...this.state.gpuList];
     list[listIndex].model = selectedItem;
-    this.setState({gpuList: list});
-    this.updateGpuBenchmarkInputFields();
+    this.setState({gpuList: list}, this.updateGpuBenchmarkInputFields);
   }
 
   private handleChangeGpuCount = (listIndex: number, value?: number) => {
     const list = [...this.state.gpuList];
     list[listIndex].count = value;
-    this.setState({gpuList: list});
-    this.updateGpuBenchmarkInputFields();
+    this.setState({gpuList: list}, this.updateGpuBenchmarkInputFields);
   }
 
   private handleRemoveGpu = (listIndex: number) => {
     const list = [...this.state.gpuList];
     list.splice(listIndex, 1);
-    this.setState({gpuList: list});
-    this.updateGpuBenchmarkInputFields();
+    this.setState({gpuList: list}, this.updateGpuBenchmarkInputFields);
   }
 
   private handleAddGpu = () => {
     const list = [...this.state.gpuList];
     list.push({...App.defaultGpu});
-    this.setState({gpuList: list});
-    this.updateGpuBenchmarkInputFields();
+    this.setState({gpuList: list}, this.updateGpuBenchmarkInputFields);
   }
 
   private updateGpuBenchmarkInputFields = () => {
