@@ -11,7 +11,7 @@ interface IResultsPanelProps {
   onCalculate?: () => void;
 }
 
-export class ResultsPanel extends React.Component<IResultsPanelProps, never> {
+export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never> {
   private static Labels = ['1 hour', '24 hours', '30 days'];
 
   private formatValue = (value?: string) => (value === undefined ? '\u2014' : `$ ${value}`);

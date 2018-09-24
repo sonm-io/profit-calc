@@ -30,7 +30,7 @@ const selectFieldCssClasses: IFormFieldCssClasses = {
   help: 'form-field__help',
 };
 
-export class Gpu extends React.Component<IGpuProps, never> {
+export class Gpu extends React.PureComponent<IGpuProps, never> {
 
   private handleChangeGpu = (selectedItem: ISelectListItem) => {
     this.props.onChangeGpuModel(this.props.index, selectedItem);
