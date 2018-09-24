@@ -156,6 +156,7 @@ class AppView extends React.Component<IAppViewProps, never> {
     return (
       <div className="app">
         <h1>Profitability calculator</h1>
+        <p>Describe your hardware configuration and find out how much you can earn with SONM.</p>
         <div className="app__container">
           {this.renderMain()}
           <ResultsPanel

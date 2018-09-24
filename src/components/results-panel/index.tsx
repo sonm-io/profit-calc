@@ -32,7 +32,7 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
     console.log('render ResultsPanel');
     return (
       <div className={cn('results-panel', this.props.className)}>
-        <h3>Estimated income</h3>
+        <h3>Your estimated income</h3>
         <div className="results-panel__grid">{this.renderValues()}</div>
         <p>* electricity costs are not included</p>
         <Button
