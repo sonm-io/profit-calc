@@ -1,4 +1,4 @@
-import Button from '@material-ui/core/Button';
+import Button from '../styled/button';
 import * as React from 'react';
 import './index.css';
 import * as cn from 'classnames';

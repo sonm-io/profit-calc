@@ -13,6 +13,7 @@ import { GpuList, IGpuListProps } from '../gpu-list';
 import { ResultsPanel } from '../results-panel';
 import { ISelectListItem } from '../types';
 import { IInputFields, IAppValues } from './types';
+import selectStyles from '../styled/select';
 
 interface IAppViewProps extends IAppValues, IGpuListProps {
   cpuModelsList: ISelectListItem[];
@@ -138,6 +139,7 @@ class AppView extends React.Component<IAppViewProps, never> {
           label="CPU level"
         >
           <Select
+            styles={selectStyles}
             placeholder="Select your CPU"
             options={p.cpuModelsList}
             value={p.cpuModelsList[p.cpu]}
