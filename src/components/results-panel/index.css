@@ -1,10 +1,19 @@
 .results-panel {
-    width: 300px;
-    padding: 24px;
-    background-color: #f2f7fa;
+  width: 300px;
+  padding: 24px;
+  background-color: #f2f7fa;
 }
 
 .results-panel__grid {
-    display: grid;
-    grid-template-columns: auto auto;
+  display: grid;
+  grid-template-columns: auto auto;
 }
+
+.results-panel__cell {
+  margin: 5px 0;
+}
+
+.results-panel__cell-value {
+  font-weight: 700;
+}
+

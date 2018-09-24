@@ -1,6 +1,8 @@
+type CSSProperties = React.CSSProperties | { [index: string]: string };
+
 export default {
   
-  control: (base: React.CSSProperties, state: any) => {
+  control: (base: React.CSSProperties, state: any): CSSProperties => {
     console.log(base, state);
     return {
       ...base,
@@ -15,8 +17,15 @@ export default {
       },
     }
   },
-  menu: (base: React.CSSProperties) => ({
+  menu: (base: React.CSSProperties): CSSProperties => ({
     ...base,
     borderRadius: 'unset',
+  }),
+
+  option: (base: React.CSSProperties, state: any): CSSProperties => ({
+    ...base,
+    backgroundColor: state.isSelected 
+        ? '#6522ff' 
+        : base.backgroundColor, 
   })
 }

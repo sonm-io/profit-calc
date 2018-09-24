@@ -18,8 +18,8 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
 
   private renderValue = (label: string, value: string) => (
     <React.Fragment key={label}>
-      <div>{label}:</div>
-      <div>{value}</div>
+      <div className="results-panel__cell">{label}:</div>
+      <div className="results-panel__cell results-panel__cell-value">{value}</div>
     </React.Fragment>
   );
 
