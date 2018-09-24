@@ -29,6 +29,7 @@ export class ResultsPanel extends React.Component<IResultsPanelProps, never> {
     );
 
   public render() {
+    console.log('render ResultsPanel');
     return (
       <div className={cn('results-panel', this.props.className)}>
         <h3>Estimated income</h3>

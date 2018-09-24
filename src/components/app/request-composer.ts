@@ -1,8 +1,9 @@
 import { gpuList, cpuList } from '../../data';
 import { IAppValues } from './types';
+import { IGpu } from '../gpu-list';
 
-export const computeGpuBenchmarks = (s: IAppValues) => {
-  const selectedGpus = s.gpuList.filter(gpu => gpu.model.value > -1);
+export const computeGpuBenchmarks = (selectedGpuList: IGpu[]) => {
+  const selectedGpus = selectedGpuList.filter(gpu => gpu.model.value > -1);
   const countAll: number = gpuList.reduce((acc, gpu) => acc + (gpu.count||1), 0);
   const aggregatedBenchmarks = selectedGpus
     .reduce((acc, gpu) => {
@@ -46,7 +47,7 @@ export const getRequest = (s: IAppValues) => {
       "storage-size": parseInt(s.storage, 0) * 1024 * 1024,
       "net-download": parseInt(s.networkIn, 0) * 1024,
       "net-upload": parseInt(s.networkOut, 0) * 1024,
-      ...computeGpuBenchmarks(s),
+      ...computeGpuBenchmarks(s.gpuList),
       ...cpu
     }
   }

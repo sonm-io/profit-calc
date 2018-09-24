@@ -48,6 +48,7 @@ export class Gpu extends React.Component<IGpuProps, never> {
   };  
 
   public render() {
+    console.log('render Gpu');
     return (
       <div className="gpu">
         <FormField

@@ -5,6 +5,7 @@ import { IInputFields, IAppValues } from './types';
 import { ISelectListItem } from '../types';
 import { getRequest, computeGpuBenchmarks } from './request-composer';
 import { getEstimateProfit } from './response-parser';
+import { IGpu } from '../gpu-list';
 
 class App extends React.Component<{}, IAppValues> {
 
@@ -33,30 +34,31 @@ class App extends React.Component<{}, IAppValues> {
   private handleChangeGpuModel = (listIndex: number, selectedItem: ISelectListItem) => {
     const list = [...this.state.gpuList];
     list[listIndex].model = selectedItem;
-    this.setState({gpuList: list}, this.updateGpuBenchmarkInputFields);
+    this.updateGpuBenchmarkInputFields(list);
   }
 
   private handleChangeGpuCount = (listIndex: number, value?: number) => {
     const list = [...this.state.gpuList];
     list[listIndex].count = value;
-    this.setState({gpuList: list}, this.updateGpuBenchmarkInputFields);
+    this.updateGpuBenchmarkInputFields(list);
   }
 
   private handleRemoveGpu = (listIndex: number) => {
     const list = [...this.state.gpuList];
     list.splice(listIndex, 1);
-    this.setState({gpuList: list}, this.updateGpuBenchmarkInputFields);
+    this.updateGpuBenchmarkInputFields(list);
   }
 
   private handleAddGpu = () => {
     const list = [...this.state.gpuList];
     list.push({...App.defaultGpu});
-    this.setState({gpuList: list}, this.updateGpuBenchmarkInputFields);
+    this.updateGpuBenchmarkInputFields(list);
   }
 
-  private updateGpuBenchmarkInputFields = () => {
-    const bmarks = computeGpuBenchmarks(this.state);
+  private updateGpuBenchmarkInputFields = (gpuList: IGpu[]) => {
+    const bmarks = computeGpuBenchmarks(gpuList);
     const update: any = {
+      gpuList,
       ethhash: bmarks['gpu-eth-hashrate'] / 1000 / 1000,
       equihash200: bmarks['gpu-cash-hashrate']
     }
@@ -107,6 +109,7 @@ class App extends React.Component<{}, IAppValues> {
   }
 
   public render() {
+    console.log('render App');
     const s = this.state;
     return (
       <AppView
