@@ -53,7 +53,7 @@
     "start": "node scripts/start.js",
     "sg": "styleguidist server",
     "sg:build": "styleguidist build",
-    "build": "cross-env GENERATE_SOURCEMAP=false node scripts/build.js",
+    "build": "cross-env GENERATE_SOURCEMAP=false PUBLIC_URL=/profit-calc-web node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {
