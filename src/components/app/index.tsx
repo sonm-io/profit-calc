@@ -109,7 +109,7 @@ class App extends React.Component<{}, IAppValues> {
   }
 
   public render() {
-    console.log('render App');
+    // console.log('render App');
     const s = this.state;
     return (
       <AppView

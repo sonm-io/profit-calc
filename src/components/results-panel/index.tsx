@@ -29,7 +29,7 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
     );
 
   public render() {
-    console.log('render ResultsPanel');
+    // console.log('render ResultsPanel');
     return (
       <div className={cn('results-panel', this.props.className)}>
         <h3 className="results-panel__header">Your estimated income</h3>
