@@ -16,7 +16,7 @@ export interface IGpuListProps extends IGpuEvents {
 export class GpuList extends React.Component<IGpuListProps, never> {
 
   public render() {
-    console.log('render GpuList');
+    // console.log('render GpuList');
     return (
       <div className="gpu-list">
         {this.props.gpuList.map((gpu, index) => (

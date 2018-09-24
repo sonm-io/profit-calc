@@ -35,7 +35,7 @@ export class FormField extends React.PureComponent<IFormFieldProps, any> {
   }
 
   public render() {
-    console.log('render FormField');
+    // console.log('render FormField');
     const p = this.props;
     const cssClasses = p.cssClasses || FormField.defaultCssClasses
     const root = cssClasses.root;

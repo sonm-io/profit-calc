@@ -14,7 +14,7 @@ interface IBenchmarksProps extends IBenchmarks {
 
 class Benchmarks extends React.Component<IBenchmarksProps, never> {
   public render() {
-    console.log('render Benchmarks');
+    // console.log('render Benchmarks');
     const p = this.props;
     return (
       <div className="benchmarks">
