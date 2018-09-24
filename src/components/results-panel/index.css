@@ -4,6 +4,10 @@
   background-color: #f2f7fa;
 }
 
+.results-panel__header {
+  font-family: 'Ubuntu', sans-serif;
+}
+
 .results-panel__grid {
   display: grid;
   grid-template-columns: auto auto;
