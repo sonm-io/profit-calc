@@ -16,8 +16,8 @@ class App extends React.Component<{}, IAppValues> {
     super(props);
     this.state = {
       gpuList: [{...App.defaultGpu}],
-      ethhash: '',
-      equihash200: '',
+      ethhash: '0',
+      equihash200: '0',
       cpu: 1,
       ram: '8',
       storage: '20',
@@ -59,7 +59,7 @@ class App extends React.Component<{}, IAppValues> {
     const bmarks = computeGpuBenchmarks(gpuList);
     const update: any = {
       gpuList,
-      ethhash: bmarks['gpu-eth-hashrate'] / 1000 / 1000,
+      ethhash: bmarks['gpu-eth-hashrate'] / 1000000,
       equihash200: bmarks['gpu-cash-hashrate']
     }
     this.setState(update as Pick<IInputFields, keyof IInputFields>);

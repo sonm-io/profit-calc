@@ -130,7 +130,11 @@ class AppView extends React.Component<IAppViewProps, never> {
           Add card
         </Button>
         {p.showBenchmarks && (
-          <Benchmarks equihash200={p.equihash200} ethhash={p.ethhash} onChange={p.onChange} />
+          <Benchmarks
+            equihash200={p.equihash200}
+            ethhash={p.ethhash}
+            onChange={p.onChange}
+          />
         )}
         <FormField
           className="app__cpu-field app__separator"
