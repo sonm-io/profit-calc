@@ -53,7 +53,7 @@
     "start": "node scripts/start.js",
     "sg": "styleguidist server",
     "sg:build": "styleguidist build",
-    "build": "node scripts/build.js",
+    "build": "cross-env GENERATE_SOURCEMAP=false node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {
@@ -61,6 +61,7 @@
     "@types/node": "^10.9.4",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.7",
+    "cross-env": "^5.2.0",
     "react-docgen-typescript": "^1.8.1",
     "react-styleguidist": "^7.3.8",
     "typescript": "^3.0.3"
