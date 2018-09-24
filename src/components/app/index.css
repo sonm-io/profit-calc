@@ -5,7 +5,12 @@
 
 /*#region Headers and separators  */
 
+.app__title {
+  font-family: 'Ubuntu', sans-serif;
+}
+
 .app__header {
+  font-family: 'Ubuntu', sans-serif;
   margin-bottom: 33px;
 }
 

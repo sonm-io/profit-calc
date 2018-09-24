@@ -1,4 +1,4 @@
-import Button from '@material-ui/core/Button';
+import Button from '../styled/button';
 import * as React from 'react';
 import './index.css';
 import * as cn from 'classnames';
@@ -11,15 +11,15 @@ interface IResultsPanelProps {
   onCalculate?: () => void;
 }
 
-export class ResultsPanel extends React.Component<IResultsPanelProps, never> {
+export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never> {
   private static Labels = ['1 hour', '24 hours', '30 days'];
 
   private formatValue = (value?: string) => (value === undefined ? '\u2014' : `$ ${value}`);
 
   private renderValue = (label: string, value: string) => (
     <React.Fragment key={label}>
-      <div>{label}:</div>
-      <div>{value}</div>
+      <div className="results-panel__cell">{label}:</div>
+      <div className="results-panel__cell results-panel__cell-value">{value}</div>
     </React.Fragment>
   );
 
@@ -29,9 +29,10 @@ export class ResultsPanel extends React.Component<IResultsPanelProps, never> {
     );
 
   public render() {
+    console.log('render ResultsPanel');
     return (
       <div className={cn('results-panel', this.props.className)}>
-        <h3>Estimated income</h3>
+        <h3 className="results-panel__header">Your estimated income</h3>
         <div className="results-panel__grid">{this.renderValues()}</div>
         <p>* electricity costs are not included</p>
         <Button

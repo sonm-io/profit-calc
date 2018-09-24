@@ -9,6 +9,7 @@ import Select from 'react-select';
 
 import { ISelectListItem } from '../types';
 import { FormField, IFormFieldCssClasses } from '../form-field';
+import selectStyles from '../styled/select';
 
 export interface IGpuEvents {
   onChangeGpuModel: (listIndex: number, selectedItem: ISelectListItem) => void;
@@ -30,7 +31,7 @@ const selectFieldCssClasses: IFormFieldCssClasses = {
   help: 'form-field__help',
 };
 
-export class Gpu extends React.Component<IGpuProps, never> {
+export class Gpu extends React.PureComponent<IGpuProps, never> {
 
   private handleChangeGpu = (selectedItem: ISelectListItem) => {
     this.props.onChangeGpuModel(this.props.index, selectedItem);
@@ -48,6 +49,7 @@ export class Gpu extends React.Component<IGpuProps, never> {
   };  
 
   public render() {
+    console.log('render Gpu');
     return (
       <div className="gpu">
         <FormField
@@ -57,6 +59,7 @@ export class Gpu extends React.Component<IGpuProps, never> {
           horizontal
         >
           <Select
+            styles={selectStyles}
             options={this.props.gpuModelsList}
             value={this.props.selectedGpu}
             onChange={this.handleChangeGpu}
