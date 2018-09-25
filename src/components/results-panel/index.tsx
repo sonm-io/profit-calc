@@ -42,22 +42,24 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
         <h3 className="results-panel__header">Estimated cost</h3>
         <div className="results-panel__grid">{this.renderValues()}</div>
         <p>* electricity costs are not included</p>
-        <CalculateButton
-          className="results-panel__calculate-button"
-          disabled={this.props.onCalculate === undefined}
-          variant="contained"
-          color="primary"
-          onClick={this.props.onCalculate}
-        >
-          Calculate
-        </CalculateButton>
-        <a
-          className="results-panel__get-started-link"
-          target="_blank"
-          href="https://docs.sonm.com/getting-started"
-        >
-          Get started
-        </a>
+        <div className="results-panel__bottom">
+          <CalculateButton
+            className="results-panel__calculate-button"
+            disabled={this.props.onCalculate === undefined}
+            variant="contained"
+            color="primary"
+            onClick={this.props.onCalculate}
+          >
+            Calculate
+          </CalculateButton>
+          <a
+            className="results-panel__get-started-link"
+            target="_blank"
+            href="https://docs.sonm.com/getting-started"
+          >
+            Try it!
+          </a>
+        </div>
       </div>
     );
   }
