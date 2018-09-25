@@ -4,7 +4,6 @@ import { IGpu } from '../gpu-list';
 
 export const computeGpuBenchmarks = (selectedGpuList: IGpu[]) => {
   const selectedGpus = selectedGpuList.filter(gpu => gpu.model.value > -1);
-  
   const aggregatedBenchmarks = selectedGpus
     .reduce((acc, gpu) => {
       const gpuModel = gpuList[gpu.model.value];
@@ -19,7 +18,7 @@ export const computeGpuBenchmarks = (selectedGpuList: IGpu[]) => {
     {
       'gpu-eth-hashrate':  0,
       'gpu-cash-hashrate': 0,
-      'gpu-mem': 0,
+      'gpu-mem': selectedGpus.length === 0 ? 0 : Infinity,
       'gpu-count': 0,
     });
   return aggregatedBenchmarks;
@@ -38,15 +37,15 @@ export const getRequest = (s: IAppValues) => {
   const cpu = getCpuBenchmarks(cpuList[s.cpu].benchmarks);
   return {
     "network": {
-      "overlay": s.networkPublicIp,
+      "overlay": true,
       "outbound": true,
-      "incoming": true
+      "incoming": s.networkPublicIp
     },
     "benchmarks": {
-      "ram-size":  parseFloat(s.ram) * 1024 * 1024,
-      "storage-size": parseFloat(s.storage) * 1024 * 1024,
-      "net-download": parseFloat(s.networkIn) * 1024,
-      "net-upload": parseFloat(s.networkOut) * 1024,
+      "ram-size":  parseFloat(s.ram) * 1024 * 1024 * 1024,
+      "storage-size": parseFloat(s.storage) * 1024 * 1024 * 1024,
+      "net-download": parseFloat(s.networkIn) * 1024 * 1024,
+      "net-upload": parseFloat(s.networkOut) * 1024 * 1024,
       "gpu-count": gpuBenchmarks["gpu-count"],
       "gpu-mem": gpuBenchmarks["gpu-mem"],
       'gpu-eth-hashrate': parseFloat(s.ethhash) * 1000 * 1000,
