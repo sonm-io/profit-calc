@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Select from 'react-select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Button from '@material-ui/core/Button';
+import Button from '../styled/button';
 // local
 import './index.css';
 import FormField, { IFormFieldCssClasses } from '../form-field';

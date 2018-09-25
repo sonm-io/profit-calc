@@ -2,6 +2,7 @@ import Button from '../styled/button';
 import * as React from 'react';
 import './index.css';
 import * as cn from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
 
 export type TEstimateProfit = [string?, string?, string?];
 
@@ -10,6 +11,12 @@ interface IResultsPanelProps {
   values: TEstimateProfit;
   onCalculate?: () => void;
 }
+
+const CalculateButton = withStyles({
+  root: {
+    fontWeight: 700
+  }
+})(Button);
 
 export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never> {
   private static Labels = ['1 hour', '24 hours', '30 days'];
@@ -35,14 +42,14 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
         <h3 className="results-panel__header">Your estimated income</h3>
         <div className="results-panel__grid">{this.renderValues()}</div>
         <p>* electricity costs are not included</p>
-        <Button
+        <CalculateButton
           disabled={this.props.onCalculate === undefined}
           variant="contained"
           color="primary" 
           onClick={this.props.onCalculate}
           >
           Calculate
-        </Button>
+        </CalculateButton>
       </div>
     );
   }
