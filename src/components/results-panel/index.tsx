@@ -14,8 +14,8 @@ interface IResultsPanelProps {
 
 const CalculateButton = withStyles({
   root: {
-    fontWeight: 700
-  }
+    fontWeight: 700,
+  },
 })(Button);
 
 export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never> {
@@ -30,7 +30,7 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
     </React.Fragment>
   );
 
-  private renderValues = () => 
+  private renderValues = () =>
     ResultsPanel.Labels.map((label, i) =>
       this.renderValue(label, this.formatValue(this.props.values[i])),
     );
@@ -39,17 +39,25 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
     // console.log('render ResultsPanel');
     return (
       <div className={cn('results-panel', this.props.className)}>
-        <h3 className="results-panel__header">Your estimated income</h3>
+        <h3 className="results-panel__header">Estimated cost</h3>
         <div className="results-panel__grid">{this.renderValues()}</div>
         <p>* electricity costs are not included</p>
         <CalculateButton
+          className="results-panel__calculate-button"
           disabled={this.props.onCalculate === undefined}
           variant="contained"
-          color="primary" 
+          color="primary"
           onClick={this.props.onCalculate}
-          >
+        >
           Calculate
         </CalculateButton>
+        <a
+          className="results-panel__get-started-link"
+          target="_blank"
+          href="https://docs.sonm.com/getting-started"
+        >
+          Get started
+        </a>
       </div>
     );
   }

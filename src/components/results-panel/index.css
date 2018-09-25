@@ -21,3 +21,17 @@
   font-weight: 700;
 }
 
+.results-panel__calculate-button {
+  height: 50px;
+}
+
+.results-panel__get-started-link {
+  text-decoration: none;
+  color: #6522ff;
+  float: right;
+  line-height: 50px;
+}
+
+.results-panel__get-started-link:hover {
+  text-decoration: underline;
+}
