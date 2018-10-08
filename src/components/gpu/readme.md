@@ -6,7 +6,7 @@ const { gpuModelsList } = require('../../data');
 class Container extends React.Component {
   constructor() {
     this.state = {
-      selectedGpu: gpuModelsList[0],
+      selectedGpu: undefined,
       count: 1,
     };
 

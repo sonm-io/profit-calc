@@ -1,16 +1,16 @@
 .benchmarks {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.benchmarks__header {
-  grid-column: 1 / span 2;
+  display: flex;
+  --form-field-font-size: smaller;
 }
 
 .benchmarks__input {
-  width: 150px;
+  width: 100px;
 }
 
-.benchmarks__col2 {
-  margin: 0 15px 0 auto;
+.benchmarks__field:first-child {
+  margin: 0 auto 0 0;
+}
+
+.benchmarks__field:last-child {
+  margin: 0 0 0 15px;
 }
