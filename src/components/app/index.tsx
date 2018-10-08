@@ -37,8 +37,8 @@ class App extends React.Component<{}, IAppValues> {
     const list = [...this.state.gpuList];
     const gpu = list[listIndex]
     gpu.model = selectedItem;
-    gpu.ethhash = (parseFloat(gpuList[listIndex].benchmarks["gpu-eth-hashrate"]) / 1000000).toString();
-    gpu.equihash200 = gpuList[listIndex].benchmarks["gpu-cash-hashrate"];
+    gpu.ethhash = (parseFloat(gpuList[selectedItem.value].benchmarks["gpu-eth-hashrate"]) / 1000000).toString();
+    gpu.equihash200 = gpuList[selectedItem.value].benchmarks["gpu-cash-hashrate"];
     this.updateGpuBenchmarkInputFields(list);
   }
 
@@ -93,7 +93,7 @@ class App extends React.Component<{}, IAppValues> {
     };
     const url = addrs.live;
     const data = getRequest(this.state);
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
 
     fetch(url, {
         method: "POST",
