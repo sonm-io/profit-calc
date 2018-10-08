@@ -42,8 +42,8 @@
 }
 
 .app__add-gpu-link {
-  margin: 0 15px 0 auto;
-  display: flex;
+  margin: 0 15px 0 auto !important;
+  display: flex !important;
 }
 
 .app__cpu-field {
