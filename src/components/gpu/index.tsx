@@ -10,16 +10,18 @@ import Select from 'react-select';
 import { ISelectListItem } from '../types';
 import { FormField, IFormFieldCssClasses } from '../form-field';
 import selectStyles from '../styled/select';
+import { IBenchmarks, Benchmarks } from '../benchmarks';
 
 export interface IGpuEvents {
   onChangeGpuModel: (listIndex: number, selectedItem: ISelectListItem) => void;
   onChangeGpuCount: (listIndex: number, value?: number) => void;
   onRemoveGpu: (listIndex: number) => void;
+  onChangeBenchmarks: (listIndex: number, field: keyof (IBenchmarks), value: string) => void;
 }
 
-export interface IGpuProps extends IGpuEvents {
+export interface IGpuProps extends IGpuEvents, IBenchmarks {
   gpuModelsList: ISelectListItem[];
-  selectedGpu: ISelectListItem;
+  model?: ISelectListItem;
   count?: number;
   index: number;
 }
@@ -48,6 +50,10 @@ export class Gpu extends React.PureComponent<IGpuProps, never> {
     this.props.onRemoveGpu(this.props.index);
   };  
 
+  private handleChangeBenchmarks = (field: keyof (IBenchmarks), value: string) => {
+    this.props.onChangeBenchmarks(this.props.index, field, value);
+  }
+
   public render() {
     // console.log('render Gpu');
     return (
@@ -55,15 +61,19 @@ export class Gpu extends React.PureComponent<IGpuProps, never> {
         <FormField
           className={cn('gpu__full-width', 'gpu__field-model')}
           cssClasses={selectFieldCssClasses}
-          label="Model"
           horizontal
         >
           <Select
             styles={selectStyles}
             options={this.props.gpuModelsList}
-            value={this.props.selectedGpu}
+            value={this.props.model}
             onChange={this.handleChangeGpu}
-            placeholder="Search your GPU Model"
+            placeholder="Search your GPU Model or specify benchmarks"
+          />
+          <Benchmarks 
+            ethhash={this.props.ethhash} 
+            equihash200={this.props.equihash200} 
+            onChange={this.handleChangeBenchmarks} 
           />
         </FormField>
         <FormField className={cn('gpu__field')} label="Count" horizontal>

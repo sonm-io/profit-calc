@@ -3,7 +3,7 @@ import './index.css';
 import FormField from '../form-field';
 import TextField from '@material-ui/core/TextField';
 
-interface IBenchmarks {
+export interface IBenchmarks {
   ethhash: string;
   equihash200: string;
 }
@@ -12,14 +12,13 @@ interface IBenchmarksProps extends IBenchmarks {
   onChange: (field: keyof (IBenchmarks), value: string) => void;
 }
 
-class Benchmarks extends React.Component<IBenchmarksProps, never> {
+export class Benchmarks extends React.Component<IBenchmarksProps, never> {
   public render() {
     // console.log('render Benchmarks');
     const p = this.props;
     return (
       <div className="benchmarks">
-        <h3 className="benchmarks__header">Mining algo benchmarks</h3>
-        <FormField label="Ethash, Mh/s" horizontal>
+        <FormField className="benchmarks__field" label="Ethash, Mh/s" horizontal>
           <TextField
             className="benchmarks__input"
             type="number"
@@ -28,7 +27,7 @@ class Benchmarks extends React.Component<IBenchmarksProps, never> {
             onChange={this.handleChange}
           />
         </FormField>
-        <FormField className="benchmarks__col2" label="Equihash (200_9), H/s" horizontal>
+        <FormField className="benchmarks__field" label="Equihash (200_9), H/s" horizontal>
           <TextField
             className="benchmarks__input"
             type="number"
