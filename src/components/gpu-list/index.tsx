@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Gpu, IGpuEvents } from '../gpu';
 import { ISelectListItem } from '../types';
+import { IBenchmarks } from '../benchmarks';
 import './index.css';
 
-export interface IGpu {
-  model: ISelectListItem;
+export interface IGpu extends IBenchmarks {
+  model?: ISelectListItem;
   count?: number;
 };
 
@@ -24,11 +25,11 @@ export class GpuList extends React.Component<IGpuListProps, never> {
             key={index}
             index={index}
             gpuModelsList={this.props.gpuModelsList}
-            selectedGpu={gpu.model}
-            count={gpu.count}
+            {...gpu}
             onChangeGpuModel={this.props.onChangeGpuModel}
             onChangeGpuCount={this.props.onChangeGpuCount}
             onRemoveGpu={this.props.onRemoveGpu}
+            onChangeBenchmarks={this.props.onChangeBenchmarks}
           />
         ))}
       </div>

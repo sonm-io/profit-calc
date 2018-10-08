@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { gpuModelsList, cpuModelsList } from '../../data';
+import { gpuList, gpuModelsList, cpuModelsList } from '../../data';
 import AppView from './view';
 import { IInputFields, IAppValues } from './types';
 import { ISelectListItem } from '../types';
-import { getRequest, computeGpuBenchmarks } from './request-composer';
-import { getEstimateProfit } from './response-parser';
+// import { getRequest, computeGpuBenchmarks } from './request-composer';
+// import { getEstimateProfit } from './response-parser';
 import { IGpu } from '../gpu-list';
-
+import { IBenchmarks } from '../benchmarks';
 class App extends React.Component<{}, IAppValues> {
 
-  private static defaultListItem: ISelectListItem = { value: -1, label: 'None' };
-  private static defaultGpu = Object.freeze({ model: App.defaultListItem, count: 1 });
+  private static defaultGpu: IGpu = Object.freeze({ 
+    ethhash: "0",
+    equihash200: "0",
+    count: 1
+  });
 
   constructor(props: {}) {
     super(props);
@@ -33,7 +36,10 @@ class App extends React.Component<{}, IAppValues> {
   //#region GPU
   private handleChangeGpuModel = (listIndex: number, selectedItem: ISelectListItem) => {
     const list = [...this.state.gpuList];
-    list[listIndex].model = selectedItem;
+    const gpu = list[listIndex]
+    gpu.model = selectedItem;
+    gpu.ethhash = (parseFloat(gpuList[listIndex].benchmarks["gpu-eth-hashrate"]) / 1000000).toString();
+    gpu.equihash200 = gpuList[listIndex].benchmarks["gpu-cash-hashrate"];
     this.updateGpuBenchmarkInputFields(list);
   }
 
@@ -55,14 +61,19 @@ class App extends React.Component<{}, IAppValues> {
     this.updateGpuBenchmarkInputFields(list);
   }
 
-  private updateGpuBenchmarkInputFields = (gpuList: IGpu[]) => {
-    const bmarks = computeGpuBenchmarks(gpuList);
+  private updateGpuBenchmarkInputFields = (selectedGpuList: IGpu[]) => {
     const update: any = {
-      gpuList,
-      ethhash: bmarks['gpu-eth-hashrate'] / 1000000,
-      equihash200: bmarks['gpu-cash-hashrate']
+      gpuList: selectedGpuList,
     }
     this.setState(update as Pick<IInputFields, keyof IInputFields>);
+  }
+
+  private handleChangeBenchmarks = (listIndex: number, field: keyof (IBenchmarks), value: string) => {
+    const list = [...this.state.gpuList];
+    list[listIndex][field] = value;
+    this.setState({
+      gpuList: list
+    });
   }
   //#endregion
 
@@ -80,32 +91,32 @@ class App extends React.Component<{}, IAppValues> {
   }
   
   private handleCalculate = () => {
-    this.setState({ isPending: true });
-    const addrs = {
-      test: 'https://node-testnet.sonm.com:443/OrderPredictorServer/Predict/',
-      live: 'https://node.livenet.sonm.com:443/OrderPredictorServer/Predict/'
-    };
-    const url = addrs.live;
-    const data = getRequest(this.state);
+    // this.setState({ isPending: true });
+    // const addrs = {
+    //   test: 'https://node-testnet.sonm.com:443/OrderPredictorServer/Predict/',
+    //   live: 'https://node.livenet.sonm.com:443/OrderPredictorServer/Predict/'
+    // };
+    // const url = addrs.live;
+    // const data = getRequest(this.state);
     
-    fetch(url, {
-        method: "POST",
-        redirect: "follow",
-        body: JSON.stringify(data),
-    }).then(response => {
-      return response.json();
-    }).then(json => {
-      this.setState({ 
-        estimateProfit: getEstimateProfit(json.perSecond),
-        isPending: false
-      });
-    }).catch((err) => { 
-      console.log(err);
-      this.setState({ 
-        estimateProfit: [undefined, undefined, undefined],
-        isPending: false
-      });
-    });
+    // fetch(url, {
+    //     method: "POST",
+    //     redirect: "follow",
+    //     body: JSON.stringify(data),
+    // }).then(response => {
+    //   return response.json();
+    // }).then(json => {
+    //   this.setState({ 
+    //     estimateProfit: getEstimateProfit(json.perSecond),
+    //     isPending: false
+    //   });
+    // }).catch((err) => { 
+    //   console.log(err);
+    //   this.setState({ 
+    //     estimateProfit: [undefined, undefined, undefined],
+    //     isPending: false
+    //   });
+    // });
   }
 
   public render() {
@@ -117,6 +128,7 @@ class App extends React.Component<{}, IAppValues> {
         cpuModelsList={cpuModelsList}
         {...s}
         onChangeGpuModel={this.handleChangeGpuModel}
+        onChangeBenchmarks={this.handleChangeBenchmarks}
         onChangeGpuCount={this.handleChangeGpuCount}
         onRemoveGpu={this.handleRemoveGpu}
         onSwitchBenchmarkVisibility={this.handleSwitchBenchmarkVisibility}

@@ -41,18 +41,18 @@ class AppView extends React.Component<IAppViewProps, never> {
     this.props.onChange(event.target.name as keyof (IInputFields), checked);
   };
 
-  private renderBenchmarksVisibilityTrigger = () => {
-    const label = this.props.showBenchmarks ? 'Hide benchmarks' : 'Show benchmarks';
-    return (
-      <Button
-        className="app__switch-benchmarks-link"
-        color="primary"
-        onClick={this.props.onSwitchBenchmarkVisibility}
-      >
-        {label}
-      </Button>
-    );
-  };
+  // private renderBenchmarksVisibilityTrigger = () => {
+  //   const label = this.props.showBenchmarks ? 'Hide benchmarks' : 'Show benchmarks';
+  //   return (
+  //     <Button
+  //       className="app__switch-benchmarks-link"
+  //       color="primary"
+  //       onClick={this.props.onSwitchBenchmarkVisibility}
+  //     >
+  //       {label}
+  //     </Button>
+  //   );
+  // };
 
   private renderRamAndStorage = () => {
     const p = this.props;
@@ -125,7 +125,7 @@ class AppView extends React.Component<IAppViewProps, never> {
       <div className="app__main-panel">
         <h3 className="app__header">GPU</h3>
         <GpuList {...p} />
-        {this.renderBenchmarksVisibilityTrigger()}
+        {/* {this.renderBenchmarksVisibilityTrigger()} */}
         <Button color="primary" className="app__add-gpu-link" onClick={p.onAddGpu}>
           Add card
         </Button>
