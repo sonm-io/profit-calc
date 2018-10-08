@@ -28,7 +28,6 @@ class App extends React.Component<{}, IAppValues> {
       networkOut: '20',
       networkPublicIp: false,
       estimateProfit: [undefined, undefined, undefined],
-      showBenchmarks: false,
       isPending: false
     }
   }
@@ -76,10 +75,6 @@ class App extends React.Component<{}, IAppValues> {
     });
   }
   //#endregion
-
-  private handleSwitchBenchmarkVisibility = () => {
-    this.setState({ showBenchmarks: !this.state.showBenchmarks });
-  }
   
   private handleChange = (param: keyof(IInputFields), value: string | number | boolean) => {
     const newState = { [param]: value };
@@ -132,7 +127,6 @@ class App extends React.Component<{}, IAppValues> {
         onChangeBenchmarks={this.handleChangeBenchmarks}
         onChangeGpuCount={this.handleChangeGpuCount}
         onRemoveGpu={this.handleRemoveGpu}
-        onSwitchBenchmarkVisibility={this.handleSwitchBenchmarkVisibility}
         onAddGpu={this.handleAddGpu}
         onChange={this.handleChange}
         onChangeCpu={this.handleChangeCpu}

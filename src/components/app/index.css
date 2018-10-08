@@ -21,7 +21,7 @@
 }
 
 .app__separator {
-  margin: 40px 15px 0 0;
+  margin: 10px 15px 0 0;
   padding: 40px 0 0 0;
   border-top: 1px solid #e8eef4;
 }
@@ -42,8 +42,8 @@
 }
 
 .app__add-gpu-link {
-  float: right;
-  margin: 0 15px 0 0;
+  margin: 0 15px 0 auto;
+  display: flex;
 }
 
 .app__cpu-field {

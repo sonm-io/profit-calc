@@ -8,7 +8,6 @@ import Button from '../styled/button';
 // local
 import './index.css';
 import FormField, { IFormFieldCssClasses } from '../form-field';
-import Benchmarks from '../benchmarks';
 import { GpuList, IGpuListProps } from '../gpu-list';
 import { ResultsPanel } from '../results-panel';
 import { ISelectListItem } from '../types';
@@ -18,7 +17,6 @@ import selectStyles from '../styled/select';
 interface IAppViewProps extends IAppValues, IGpuListProps {
   cpuModelsList: ISelectListItem[];
   // events:
-  onSwitchBenchmarkVisibility: () => void;
   onAddGpu: () => void;
   onChange: (param: keyof (IInputFields), value: string | boolean) => void;
   onChangeCpu: (item: ISelectListItem) => void;
@@ -40,19 +38,6 @@ class AppView extends React.Component<IAppViewProps, never> {
   private handleChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     this.props.onChange(event.target.name as keyof (IInputFields), checked);
   };
-
-  // private renderBenchmarksVisibilityTrigger = () => {
-  //   const label = this.props.showBenchmarks ? 'Hide benchmarks' : 'Show benchmarks';
-  //   return (
-  //     <Button
-  //       className="app__switch-benchmarks-link"
-  //       color="primary"
-  //       onClick={this.props.onSwitchBenchmarkVisibility}
-  //     >
-  //       {label}
-  //     </Button>
-  //   );
-  // };
 
   private renderRamAndStorage = () => {
     const p = this.props;
@@ -129,13 +114,6 @@ class AppView extends React.Component<IAppViewProps, never> {
         <Button color="primary" className="app__add-gpu-link" onClick={p.onAddGpu}>
           Add card
         </Button>
-        {p.showBenchmarks && (
-          <Benchmarks
-            equihash200={p.equihash200}
-            ethhash={p.ethhash}
-            onChange={p.onChange}
-          />
-        )}
         <FormField
           className="app__cpu-field app__separator"
           cssClasses={AppView.CpuCssClasses}

@@ -15,6 +15,5 @@ export interface IAppValues extends IInputFields {
   gpuList: IGpu[];
   cpu: number;
   estimateProfit: TEstimateProfit;
-  showBenchmarks: boolean;
   isPending: boolean;
 }
