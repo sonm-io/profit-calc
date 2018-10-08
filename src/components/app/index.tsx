@@ -3,8 +3,8 @@ import { gpuList, gpuModelsList, cpuModelsList } from '../../data';
 import AppView from './view';
 import { IInputFields, IAppValues } from './types';
 import { ISelectListItem } from '../types';
-// import { getRequest, computeGpuBenchmarks } from './request-composer';
-// import { getEstimateProfit } from './response-parser';
+import { getRequest } from './request-composer';
+import { getEstimateProfit } from './response-parser';
 import { IGpu } from '../gpu-list';
 import { IBenchmarks } from '../benchmarks';
 class App extends React.Component<{}, IAppValues> {
@@ -91,32 +91,35 @@ class App extends React.Component<{}, IAppValues> {
   }
   
   private handleCalculate = () => {
-    // this.setState({ isPending: true });
-    // const addrs = {
-    //   test: 'https://node-testnet.sonm.com:443/OrderPredictorServer/Predict/',
-    //   live: 'https://node.livenet.sonm.com:443/OrderPredictorServer/Predict/'
-    // };
-    // const url = addrs.live;
-    // const data = getRequest(this.state);
+    this.setState({ isPending: true });
+    const addrs = {
+      test: 'https://node-testnet.sonm.com:443/OrderPredictorServer/PredictSupplier/',
+      live: 'https://node.livenet.sonm.com:443/OrderPredictorServer/PredictSupplier/'
+    };
+    const url = addrs.live;
+    const data = getRequest(this.state);
     
-    // fetch(url, {
-    //     method: "POST",
-    //     redirect: "follow",
-    //     body: JSON.stringify(data),
-    // }).then(response => {
-    //   return response.json();
-    // }).then(json => {
-    //   this.setState({ 
-    //     estimateProfit: getEstimateProfit(json.perSecond),
-    //     isPending: false
-    //   });
-    // }).catch((err) => { 
-    //   console.log(err);
-    //   this.setState({ 
-    //     estimateProfit: [undefined, undefined, undefined],
-    //     isPending: false
-    //   });
-    // });
+    fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        redirect: "follow",
+        body: JSON.stringify(data),
+    }).then(response => {
+      return response.json();
+    }).then(json => {
+      this.setState({ 
+        estimateProfit: getEstimateProfit(json.price.perSecond),
+        isPending: false
+      });
+    }).catch((err) => { 
+      console.log(err);
+      this.setState({ 
+        estimateProfit: [undefined, undefined, undefined],
+        isPending: false
+      });
+    });
   }
 
   public render() {
