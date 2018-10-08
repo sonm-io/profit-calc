@@ -98,12 +98,10 @@ class App extends React.Component<{}, IAppValues> {
     };
     const url = addrs.live;
     const data = getRequest(this.state);
-    
+    console.log(JSON.stringify(data));
+
     fetch(url, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
         redirect: "follow",
         body: JSON.stringify(data),
     }).then(response => {

@@ -2,9 +2,8 @@ import { gpuList, cpuList } from '../../data';
 import { IAppValues } from './types';
 import { IGpu } from '../gpu-list';
 
-const getGpu = (gpu: IGpu) => {
+const getGpu = (gpu: IGpu, totalCount: number) => {
   const gpuModel = gpuList[gpu.model === undefined ? 0 : gpu.model.value];
-  const count = gpu.count||1;
   const mem = parseFloat(gpuModel.benchmarks["gpu-mem"]);
 
   return {
@@ -16,14 +15,14 @@ const getGpu = (gpu: IGpu) => {
         "ID": 10,
         "code": "gpu-cash-hashrate",
         "type": 2,
-        "result": parseFloat(gpuModel.benchmarks['gpu-cash-hashrate']), // * count,
+        "result": parseFloat(gpuModel.benchmarks['gpu-cash-hashrate']),
         "splittingAlgorithm": 1
       },
       "7": {
         "ID": 7,
         "code": "gpu-count",
         "type": 2,
-        "result": count,
+        "result": totalCount,
         "splittingAlgorithm": 1
       },
       "8": {
@@ -37,18 +36,30 @@ const getGpu = (gpu: IGpu) => {
         "ID": 9,
         "code": "gpu-eth-hashrate",
         "type": 2,
-        "result": parseFloat(gpuModel.benchmarks['gpu-eth-hashrate']), // * count,
+        "result": parseFloat(gpuModel.benchmarks['gpu-eth-hashrate']),
         "splittingAlgorithm": 1
       }
     }
   }
 }
 
+const getGpus = (selectedGpuList: IGpu[]) => {
+  const totalCount = selectedGpuList.reduce((acc, gpu) => acc + (gpu.count||1), 0);
+
+  return selectedGpuList.reduce((acc: any[], g) => {
+    const count = g.count||1;
+    const mappedGpu = getGpu(g, totalCount);
+    for (let i = 1; i <= count; i++) {
+      acc.push(mappedGpu);
+    }
+    return acc; 
+  }, []);
+}
+
 const getCpuBenchmarks = (cpu: any) => {
   return {
     "device": {
       "cores": parseFloat(cpu['cpu-cores']),
-      "sockets": 2
     },
     "benchmarks": {
       "0": {
@@ -88,12 +99,22 @@ const getRam = (s: IAppValues) => {
   };
 }
 
+const getNetworkFlags = (s: IAppValues) => {
+  const overlay = 1;
+  const outbound = 2;
+  const incoming = 4;
+  return overlay + outbound + (s.networkPublicIp ? incoming : 0);
+}
+
 const getNetwork = (s: IAppValues) => {
   const inSpeed = parseFloat(s.networkIn) * 1024 * 1024;
   const outSpeed = parseFloat(s.networkOut) * 1024 * 1024;
   return {
     "in": inSpeed,
     "out": outSpeed,
+    "netFlags": {
+      "flags": getNetworkFlags(s)
+    },
     "benchmarksIn": {
       "5": {
         "ID": 5,
@@ -134,30 +155,10 @@ const getStorage = (s: IAppValues) => {
 }
 
 export const getRequest = (s: IAppValues) => {
-  // const gpuBenchmarks = computeGpuBenchmarks(s.gpuList);
-  // const cpu = getCpuBenchmarks(cpuList[s.cpu].benchmarks);
-  // return {
-  //   "network": {
-  //     "overlay": true,
-  //     "outbound": true,
-  //     "incoming": s.networkPublicIp
-  //   },
-  //   "benchmarks": {
-  //     "ram-size":  parseFloat(s.ram) * 1024 * 1024 * 1024,
-  //     "storage-size": parseFloat(s.storage) * 1024 * 1024 * 1024,
-  //     "net-download": parseFloat(s.networkIn) * 1024 * 1024,
-  //     "net-upload": parseFloat(s.networkOut) * 1024 * 1024,
-  //     "gpu-count": gpuBenchmarks["gpu-count"],
-  //     "gpu-mem": gpuBenchmarks["gpu-mem"],
-  //     'gpu-eth-hashrate': parseFloat(s.ethhash) * 1000 * 1000,
-  //     'gpu-cash-hashrate': parseFloat(s.equihash200),
-  //     ...cpu
-  //   }
-  // }
   return {
     "Devices": {
       "CPU": getCpuBenchmarks(cpuList[s.cpu].benchmarks),
-      "GPUs": s.gpuList.map(getGpu),
+      "GPUs": getGpus(s.gpuList),
       "RAM": getRam(s),
       "network": getNetwork(s),
       "storage": getStorage(s)
