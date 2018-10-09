@@ -104,6 +104,7 @@ const cpuList = [
       'cpu-sysbench-multi': '2000',
       'cpu-sysbench-single': '1100',
       'cpu-cores': '2',
+      'cpu-cryptonight': '50',
     },
   },
   {
@@ -112,6 +113,7 @@ const cpuList = [
       'cpu-sysbench-multi': '4000',
       'cpu-sysbench-single': '1200',
       'cpu-cores': '4',
+      'cpu-cryptonight': '150',
     },
   },
   {
@@ -120,6 +122,7 @@ const cpuList = [
       'cpu-sysbench-multi': '8000',
       'cpu-sysbench-single': '1300',
       'cpu-cores': '8',
+      'cpu-cryptonight': '220',
     },
   },
   {
@@ -128,6 +131,7 @@ const cpuList = [
       'cpu-sysbench-multi': '25000',
       'cpu-sysbench-single': '1500',
       'cpu-cores': '16',
+      'cpu-cryptonight': '300',
     },
   },
 ];
