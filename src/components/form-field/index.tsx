@@ -93,12 +93,7 @@ export class FormField extends React.PureComponent<IFormFieldProps, any> {
   protected inputContainerRef?: HTMLElement;
 
   protected handleClick = (event: React.MouseEvent<HTMLLabelElement>) => {
-    if (
-      event.currentTarget.querySelectorAll('input').length > 1 &&
-      !(this.inputContainerRef as HTMLElement).contains(event.target as HTMLElement)
-    ) {
-      event.preventDefault();
-    }
+    event.preventDefault();
   };
 
   protected saveInputContainerRef = (ref: HTMLDivElement) => {
