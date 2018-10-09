@@ -3,10 +3,11 @@ import { IAppValues } from './types';
 import { IGpu } from '../gpu-list';
 
 const getGpu = (gpu: IGpu, totalCount: number) => {
-  const gpuModel = gpuList[gpu.model === undefined ? 0 : gpu.model.value];
-  const mem = parseFloat(gpuModel.benchmarks["gpu-mem"]);
+  const mem = gpu.model === undefined 
+    ? 0 
+    : parseFloat(gpuList[gpu.model.value].benchmarks["gpu-mem"]);
 
-  return {
+    return {
     "device": {
       "Memory": mem
     },
@@ -15,7 +16,7 @@ const getGpu = (gpu: IGpu, totalCount: number) => {
         "ID": 10,
         "code": "gpu-cash-hashrate",
         "type": 2,
-        "result": parseFloat(gpuModel.benchmarks['gpu-cash-hashrate']),
+        "result": parseFloat(gpu.equihash200 || '0'),
         "splittingAlgorithm": 1
       },
       "7": {
@@ -36,7 +37,7 @@ const getGpu = (gpu: IGpu, totalCount: number) => {
         "ID": 9,
         "code": "gpu-eth-hashrate",
         "type": 2,
-        "result": parseFloat(gpuModel.benchmarks['gpu-eth-hashrate']),
+        "result": parseFloat(gpu.ethhash || '0') * 1000 * 1000,
         "splittingAlgorithm": 1
       }
     }
@@ -45,7 +46,10 @@ const getGpu = (gpu: IGpu, totalCount: number) => {
 
 const getGpus = (selectedGpuList: IGpu[]) => {
   if (selectedGpuList.length === 0) {
-    return [{}]; // this is backend requirement - if no GPU selected, then send [{}], instead [].
+    return [getGpu({
+      ethhash: "0",
+      equihash200: "0",
+    }, 0)]; // this is backend requirement
   }
 
   const totalCount = selectedGpuList.reduce((acc, gpu) => acc + (gpu.count||1), 0);
@@ -74,6 +78,13 @@ const getCpuBenchmarks = (cpu: any) => {
         "ID": 1,
         "code": "cpu-sysbench-single",
         "result": parseFloat(cpu['cpu-sysbench-single']),
+      },
+      "12": {
+        "ID": 12,
+        "code": "cpu-cryptonight",
+        "type": 1,
+        "result": parseFloat(cpu['cpu-cryptonight']),
+        "splittingAlgorithm": 1
       },
       "2": {
         "ID": 2,

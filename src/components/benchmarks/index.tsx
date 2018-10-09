@@ -36,22 +36,6 @@ export class Benchmarks extends React.Component<IBenchmarksProps, never> {
             onChange={this.handleChange}
           />
         </FormField>
-        {/* <FormField label="Cryptohigh V7, H/s" horizontal>
-          <TextField
-            className="benchmarks__input"
-            value={p.cryptohigh}
-            name="cryptohigh"
-            onChange={this.handleChange}
-          />
-        </FormField>
-        <FormField label="Equihash (144_5), H/s" horizontal>
-          <TextField
-            className="benchmarks__input"
-            value={p.equihash144}
-            name="equihash144"
-            onChange={this.handleChange}
-          />
-        </FormField> */}
       </div>
     );
   }
