@@ -28,6 +28,7 @@ export class GpuList extends React.Component<IGpuListProps, never> {
             {...gpu}
             onChangeGpuModel={this.props.onChangeGpuModel}
             onChangeGpuCount={this.props.onChangeGpuCount}
+            onBlurCount={this.props.onBlurCount}
             onRemoveGpu={this.props.onRemoveGpu}
             onChangeBenchmarks={this.props.onChangeBenchmarks}
           />

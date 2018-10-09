@@ -16,6 +16,7 @@ import selectStyles from '../styled/select';
 
 interface IAppViewProps extends IAppValues, IGpuListProps {
   cpuModelsList: ISelectListItem[];
+  maximumCardsAllowed: number;
   // events:
   onAddGpu: () => void;
   onChange: (param: keyof (IInputFields), value: string | boolean) => void;
@@ -30,6 +31,11 @@ class AppView extends React.Component<IAppViewProps, never> {
     input: 'app__cpu-select',
     help: 'form-field__help',
   };
+
+  private get allowAddCard () {
+    return this.props.maximumCardsAllowed >
+           this.props.gpuList.reduce((acc, card) => acc + (card.count || 1), 0);
+  }
 
   private handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.props.onChange(event.target.name as keyof (IInputFields), event.target.value);
@@ -111,9 +117,19 @@ class AppView extends React.Component<IAppViewProps, never> {
         <h3 className="app__header">GPU</h3>
         <GpuList {...p} />
         {/* {this.renderBenchmarksVisibilityTrigger()} */}
-        <Button color="primary" className="app__add-gpu-link" onClick={p.onAddGpu}>
-          Add card
-        </Button>
+        <div className="app__gpu-bottom-panel">
+          <span className="app__gpu-message">
+            {!this.allowAddCard ? `Maximum ${p.maximumCardsAllowed} cards allowed` : null}
+          </span>
+          <Button
+            disabled={!this.allowAddCard}
+            color="primary"
+            className="app__add-gpu-link"
+            onClick={p.onAddGpu}
+          >
+            Add card
+          </Button>
+        </div>
         <FormField
           className="app__cpu-field app__separator"
           cssClasses={AppView.CpuCssClasses}

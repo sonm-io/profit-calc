@@ -15,6 +15,7 @@ import { IBenchmarks, Benchmarks } from '../benchmarks';
 export interface IGpuEvents {
   onChangeGpuModel: (listIndex: number, selectedItem: ISelectListItem) => void;
   onChangeGpuCount: (listIndex: number, value?: number) => void;
+  onBlurCount: (listIndex: number) => void;
   onRemoveGpu: (listIndex: number) => void;
   onChangeBenchmarks: (listIndex: number, field: keyof (IBenchmarks), value: string) => void;
 }
@@ -45,6 +46,10 @@ export class Gpu extends React.PureComponent<IGpuProps, never> {
       parseInt(event.target.value, undefined) || undefined,
     );
   };
+
+  private handleBlurCount = () => {
+    this.props.onBlurCount(this.props.index);
+  }
 
   private handleClose = () => {
     this.props.onRemoveGpu(this.props.index);
@@ -83,6 +88,7 @@ export class Gpu extends React.PureComponent<IGpuProps, never> {
             inputProps={{ min: 1 }}
             value={this.props.count || ''}
             onChange={this.handleChangeCount}
+            onBlur={this.handleBlurCount}
           />
         </FormField>
         <IconButton className="gpu__button-close" aria-label="Close" onClick={this.handleClose}>
