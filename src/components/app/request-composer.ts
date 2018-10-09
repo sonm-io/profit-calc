@@ -44,6 +44,10 @@ const getGpu = (gpu: IGpu, totalCount: number) => {
 }
 
 const getGpus = (selectedGpuList: IGpu[]) => {
+  if (selectedGpuList.length === 0) {
+    return [{}]; // this is backend requirement - if no GPU selected, then send [{}], instead [].
+  }
+
   const totalCount = selectedGpuList.reduce((acc, gpu) => acc + (gpu.count||1), 0);
 
   return selectedGpuList.reduce((acc: any[], g) => {
