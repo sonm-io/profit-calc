@@ -15,6 +15,8 @@ class App extends React.Component<{}, IAppValues> {
     count: 1
   });
 
+  private static maxGpus = 16;
+
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -46,6 +48,16 @@ class App extends React.Component<{}, IAppValues> {
     const list = [...this.state.gpuList];
     list[listIndex].count = value;
     this.updateGpuBenchmarkInputFields(list);
+  }
+
+  private handleBlurCount = (listIndex: number) => {
+    const gpuCount = this.state.gpuList.reduce((acc, g) => acc + (g.count||1), 0);
+    if (gpuCount > App.maxGpus) {
+      const list = [...this.state.gpuList];
+      const gpu = list[listIndex]
+      gpu.count = (gpu.count||1) - (gpuCount - App.maxGpus);
+      this.setState({ gpuList: list })
+    }
   }
 
   private handleRemoveGpu = (listIndex: number) => {
@@ -122,10 +134,12 @@ class App extends React.Component<{}, IAppValues> {
       <AppView
         gpuModelsList={gpuModelsList}
         cpuModelsList={cpuModelsList}
+        maximumCardsAllowed={App.maxGpus}
         {...s}
         onChangeGpuModel={this.handleChangeGpuModel}
         onChangeBenchmarks={this.handleChangeBenchmarks}
         onChangeGpuCount={this.handleChangeGpuCount}
+        onBlurCount={this.handleBlurCount}
         onRemoveGpu={this.handleRemoveGpu}
         onAddGpu={this.handleAddGpu}
         onChange={this.handleChange}

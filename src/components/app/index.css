@@ -41,9 +41,17 @@
   margin: 0 0 0 -16px !important;
 }
 
+.app__gpu-bottom-panel {
+  display: flex;
+  flex-direction: row;
+}
+
+.app__gpu-message {
+  margin: auto 0 auto auto;
+}
+
 .app__add-gpu-link {
-  margin: 0 15px 0 auto !important;
-  display: flex !important;
+  margin: 0 15px 0 0 !important;
 }
 
 .app__cpu-field {
