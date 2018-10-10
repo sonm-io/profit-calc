@@ -67,7 +67,7 @@ class AppView extends React.Component<IAppViewProps, never> {
           {label}
         </Button>
         <BenchmarksTooltip 
-          title="These are the characteristics of the GPU card. They are set automatically when you select a GPU card. Change them if necessary." 
+          title="These are a GPU performance characteristics. They are set automatically when you select a GPU card. Change them if necessary." 
           placement="right"
         >
           <HelpOutlineIcon className="app__benchmarks-question" color="primary" />

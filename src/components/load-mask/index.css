@@ -1,5 +1,5 @@
 :root {
-    --load-mask-debounce-delay: 0.1s;
+    --load-mask-debounce-delay: 0.225s;
 }
 
 .load-mask {

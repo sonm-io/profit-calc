@@ -8,6 +8,7 @@ import { getEstimateProfit } from './response-parser';
 import { IGpu } from '../gpu-list';
 import { IBenchmarks } from '../benchmarks';
 import { LoadMask } from '../load-mask';
+import { TEstimateProfit } from '../results-panel';
 
 class App extends React.Component<{}, IAppValues> {
 
@@ -18,6 +19,8 @@ class App extends React.Component<{}, IAppValues> {
   });
 
   private static maxGpus = 16;
+
+  private static defaultEstimateProfit: TEstimateProfit = [undefined, undefined, undefined];
 
   constructor(props: {}) {
     super(props);
@@ -32,7 +35,7 @@ class App extends React.Component<{}, IAppValues> {
       networkIn: '50',
       networkOut: '20',
       networkPublicIp: false,
-      estimateProfit: [undefined, undefined, undefined],
+      estimateProfit: App.defaultEstimateProfit,
       isPending: false
     }
   }
@@ -119,16 +122,36 @@ class App extends React.Component<{}, IAppValues> {
         redirect: "follow",
         body: JSON.stringify(data),
     }).then(response => {
-      return response.json();
-    }).then(json => {
-      this.setState({ 
-        estimateProfit: getEstimateProfit(json.price.perSecond),
-        isPending: false
-      });
+      if (response.status === 200) {
+        return new Promise(resolve => response.json().then(r => resolve({
+          success: true,
+          data: r
+        }))); 
+      } else {
+        return new Promise(resolve => response.text().then(r => resolve({
+          success: false,
+          data: r
+        }))); 
+      }
+    }).then((result: any) => {
+      if (result.success === true) {
+        this.setState({ 
+          estimateProfit: getEstimateProfit(result.data.price.perSecond),
+          isPending: false
+        });
+      } else {
+        const message = result.data === 'no plans found'
+          ? 'no-plans-found'
+          : 'server-failed'
+        this.setState({ 
+          estimateProfit: message,
+          isPending: false
+        });
+      }
     }).catch((err) => { 
       console.log(err);
       this.setState({ 
-        estimateProfit: [undefined, undefined, undefined],
+        estimateProfit: App.defaultEstimateProfit,
         isPending: false
       });
     });
