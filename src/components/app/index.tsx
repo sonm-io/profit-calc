@@ -7,6 +7,8 @@ import { getRequest } from './request-composer';
 import { getEstimateProfit } from './response-parser';
 import { IGpu } from '../gpu-list';
 import { IBenchmarks } from '../benchmarks';
+import { LoadMask } from '../load-mask';
+
 class App extends React.Component<{}, IAppValues> {
 
   private static defaultGpu: IGpu = Object.freeze({ 
@@ -131,21 +133,23 @@ class App extends React.Component<{}, IAppValues> {
     // console.log('render App');
     const s = this.state;
     return (
-      <AppView
-        gpuModelsList={gpuModelsList}
-        cpuModelsList={cpuModelsList}
-        maximumCardsAllowed={App.maxGpus}
-        {...s}
-        onChangeGpuModel={this.handleChangeGpuModel}
-        onChangeBenchmarks={this.handleChangeBenchmarks}
-        onChangeGpuCount={this.handleChangeGpuCount}
-        onBlurCount={this.handleBlurCount}
-        onRemoveGpu={this.handleRemoveGpu}
-        onAddGpu={this.handleAddGpu}
-        onChange={this.handleChange}
-        onChangeCpu={this.handleChangeCpu}
-        onCalculate={this.handleCalculate}
-      />
+      <LoadMask visible={s.isPending} white>
+        <AppView
+          gpuModelsList={gpuModelsList}
+          cpuModelsList={cpuModelsList}
+          maximumCardsAllowed={App.maxGpus}
+          {...s}
+          onChangeGpuModel={this.handleChangeGpuModel}
+          onChangeBenchmarks={this.handleChangeBenchmarks}
+          onChangeGpuCount={this.handleChangeGpuCount}
+          onBlurCount={this.handleBlurCount}
+          onRemoveGpu={this.handleRemoveGpu}
+          onAddGpu={this.handleAddGpu}
+          onChange={this.handleChange}
+          onChangeCpu={this.handleChangeCpu}
+          onCalculate={this.handleCalculate}
+        />
+      </LoadMask>
     );
   }
 }
