@@ -10,6 +10,7 @@ export interface IGpu extends IBenchmarks {
 };
 
 export interface IGpuListProps extends IGpuEvents {
+  showBenchmarks: boolean;
   gpuModelsList: ISelectListItem[];
   gpuList: IGpu[];
 }
@@ -25,6 +26,7 @@ export class GpuList extends React.Component<IGpuListProps, never> {
             key={index}
             index={index}
             gpuModelsList={this.props.gpuModelsList}
+            showBenchmarks={this.props.showBenchmarks}
             {...gpu}
             onChangeGpuModel={this.props.onChangeGpuModel}
             onChangeGpuCount={this.props.onChangeGpuCount}

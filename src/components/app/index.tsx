@@ -22,6 +22,7 @@ class App extends React.Component<{}, IAppValues> {
   constructor(props: {}) {
     super(props);
     this.state = {
+      showBenchmarks: false,
       gpuList: [{...App.defaultGpu}],
       ethhash: '0',
       equihash200: '0',
@@ -37,6 +38,10 @@ class App extends React.Component<{}, IAppValues> {
   }
 
   //#region GPU
+  private handleSwitchBenchmarkVisibility = () => {
+    this.setState({ showBenchmarks: !this.state.showBenchmarks });
+  }
+  
   private handleChangeGpuModel = (listIndex: number, selectedItem: ISelectListItem) => {
     const list = [...this.state.gpuList];
     const gpu = list[listIndex]
@@ -139,6 +144,7 @@ class App extends React.Component<{}, IAppValues> {
           cpuModelsList={cpuModelsList}
           maximumCardsAllowed={App.maxGpus}
           {...s}
+          onSwitchBenchmarkVisibility={this.handleSwitchBenchmarkVisibility}
           onChangeGpuModel={this.handleChangeGpuModel}
           onChangeBenchmarks={this.handleChangeBenchmarks}
           onChangeGpuCount={this.handleChangeGpuCount}

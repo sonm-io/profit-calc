@@ -12,6 +12,7 @@ export interface IInputFields {
 }
 
 export interface IAppValues extends IInputFields {
+  showBenchmarks: boolean;
   gpuList: IGpu[];
   cpu: number;
   estimateProfit: TEstimateProfit;

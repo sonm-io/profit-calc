@@ -21,6 +21,7 @@ export interface IGpuEvents {
 }
 
 export interface IGpuProps extends IGpuEvents, IBenchmarks {
+  showBenchmarks: boolean;
   gpuModelsList: ISelectListItem[];
   model?: ISelectListItem;
   count?: number;
@@ -73,13 +74,15 @@ export class Gpu extends React.PureComponent<IGpuProps, never> {
             options={this.props.gpuModelsList}
             value={this.props.model}
             onChange={this.handleChangeGpu}
-            placeholder="Search your GPU Model or specify benchmarks"
+            placeholder="Search your GPU Model"
           />
-          <Benchmarks 
-            ethhash={this.props.ethhash} 
-            equihash200={this.props.equihash200} 
-            onChange={this.handleChangeBenchmarks} 
-          />
+          {this.props.showBenchmarks ? (
+            <Benchmarks 
+              ethhash={this.props.ethhash} 
+              equihash200={this.props.equihash200} 
+              onChange={this.handleChangeBenchmarks} 
+            />
+          ) : null}
         </FormField>
         <FormField className={cn('gpu__field')} label="Count" horizontal>
           <TextField

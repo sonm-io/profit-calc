@@ -37,13 +37,18 @@
   width: 100%;
 }
 
+.app__gpu-bottom-panel {
+  display: flex;
+  flex-direction: row;
+}
+
 .app__switch-benchmarks-link {
   margin: 0 0 0 -16px !important;
 }
 
-.app__gpu-bottom-panel {
-  display: flex;
-  flex-direction: row;
+.app__benchmarks-question {
+  margin: auto 0;
+  cursor: pointer;
 }
 
 .app__gpu-message {

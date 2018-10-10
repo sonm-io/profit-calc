@@ -4,7 +4,10 @@ import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Select from 'react-select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import Tooltip from '@material-ui/core/Tooltip';
 import Button from '../styled/button';
+import { withStyles } from '@material-ui/core/styles';
 // local
 import './index.css';
 import FormField, { IFormFieldCssClasses } from '../form-field';
@@ -14,10 +17,17 @@ import { ISelectListItem } from '../types';
 import { IInputFields, IAppValues } from './types';
 import selectStyles from '../styled/select';
 
+const BenchmarksTooltip = withStyles({
+  tooltip: {
+    fontSize: 'unset',
+  }
+})(Tooltip);
+
 interface IAppViewProps extends IAppValues, IGpuListProps {
   cpuModelsList: ISelectListItem[];
   maximumCardsAllowed: number;
   // events:
+  onSwitchBenchmarkVisibility: () => void;
   onAddGpu: () => void;
   onChange: (param: keyof (IInputFields), value: string | boolean) => void;
   onChangeCpu: (item: ISelectListItem) => void;
@@ -43,6 +53,27 @@ class AppView extends React.Component<IAppViewProps, never> {
 
   private handleChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     this.props.onChange(event.target.name as keyof (IInputFields), checked);
+  };
+
+  private renderBenchmarksVisibilityTrigger = () => {
+    const label = this.props.showBenchmarks ? 'Hide benchmarks' : 'Show benchmarks';
+    return (
+      <React.Fragment>
+        <Button
+          className="app__switch-benchmarks-link"
+          color="primary"
+          onClick={this.props.onSwitchBenchmarkVisibility}
+        >
+          {label}
+        </Button>
+        <BenchmarksTooltip 
+          title="These are the characteristics of the GPU card. They are set automatically when you select a GPU card. Change them if necessary." 
+          placement="right"
+        >
+          <HelpOutlineIcon className="app__benchmarks-question" color="primary" />
+        </BenchmarksTooltip>
+      </React.Fragment>
+    );
   };
 
   private renderRamAndStorage = () => {
@@ -116,8 +147,9 @@ class AppView extends React.Component<IAppViewProps, never> {
       <div className="app__main-panel">
         <h3 className="app__header">GPU</h3>
         <GpuList {...p} />
-        {/* {this.renderBenchmarksVisibilityTrigger()} */}
+        
         <div className="app__gpu-bottom-panel">
+          {this.renderBenchmarksVisibilityTrigger()}
           <span className="app__gpu-message">
             {!this.allowAddCard ? `Maximum ${p.maximumCardsAllowed} cards allowed` : null}
           </span>
