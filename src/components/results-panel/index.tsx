@@ -40,7 +40,7 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
 
   private renderNoPlansFound = () => 
     <div className="results-panel__no-plans">
-        There is no orders for specified configuration. Try another configuration.
+        There are no orders for the specified configuration. Please try another configuration.
     </div>
 
   private renderServerFailed = () => 

@@ -67,7 +67,7 @@ class AppView extends React.Component<IAppViewProps, never> {
           {label}
         </Button>
         <StyledTooltip 
-          title="These are a GPU performance characteristics. They are set automatically when you select a GPU card. Change them if necessary." 
+          title="These are the characteristics of the GPU cards. They are set to &quot;stock&quot; values by default. If you have non-stock values (if you do, you probably already know this), please enter the precise parameters manually." 
           placement="right"
         >
           <HelpOutlineIcon className="app__question-mark" color="primary" />
@@ -176,7 +176,7 @@ class AppView extends React.Component<IAppViewProps, never> {
             onChange={p.onChangeCpu}
           />
           <StyledTooltip 
-            title="In the calculation of profitability for CPUs averaged characteristics are used" 
+            title="Please note: averaged characteristics are used in the calculation of profitability for CPUs." 
             placement="bottom-end"
           >
             <HelpOutlineIcon className="app__question-mark" color="action" />
