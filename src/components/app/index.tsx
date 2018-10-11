@@ -122,36 +122,21 @@ class App extends React.Component<{}, IAppValues> {
         redirect: "follow",
         body: JSON.stringify(data),
     }).then(response => {
-      if (response.status === 200) {
-        return new Promise(resolve => response.json().then(r => resolve({
-          success: true,
-          data: r
-        }))); 
-      } else {
-        return new Promise(resolve => response.text().then(r => resolve({
-          success: false,
-          data: r
-        }))); 
-      }
-    }).then((result: any) => {
-      if (result.success === true) {
-        this.setState({ 
-          estimateProfit: getEstimateProfit(result.data.price.perSecond),
-          isPending: false
-        });
-      } else {
-        const message = result.data === 'no plans found'
-          ? 'no-plans-found'
-          : 'server-failed'
-        this.setState({ 
-          estimateProfit: message,
-          isPending: false
-        });
-      }
+      return response.json(); 
+    }).then(result => {
+      const value = result.price
+        ? getEstimateProfit(result.price.perSecond)
+        : result.error === 'no plans found'
+        ? 'no-plans-found'
+        : 'server-failed';
+      this.setState({ 
+        estimateProfit: value,
+        isPending: false
+      });
     }).catch((err) => { 
       console.log(err);
       this.setState({ 
-        estimateProfit: App.defaultEstimateProfit,
+        estimateProfit: 'server-failed',
         isPending: false
       });
     });
