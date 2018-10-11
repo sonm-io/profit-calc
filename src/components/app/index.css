@@ -33,17 +33,22 @@
   flex-direction: row;
 }
 
-.app__main-panel {
-  width: 100%;
+.app__question-mark {
+  margin: auto 0 auto 10px;
+  cursor: pointer;
 }
 
-.app__switch-benchmarks-link {
-  margin: 0 0 0 -16px !important;
+.app__main-panel {
+  width: 100%;
 }
 
 .app__gpu-bottom-panel {
   display: flex;
   flex-direction: row;
+}
+
+.app__switch-benchmarks-link {
+  margin: 0 0 0 -16px !important;
 }
 
 .app__gpu-message {
@@ -56,10 +61,12 @@
 
 .app__cpu-field {
   --field-label-width: 100px;
+  margin: 10px 0 20px 0;
 }
 
 .app__cpu-select {
   width: 100%;
+  display: flex;
 }
 
 .app__ram-field {

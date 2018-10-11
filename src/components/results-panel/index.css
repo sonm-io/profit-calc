@@ -8,9 +8,21 @@
   font-family: 'Ubuntu', sans-serif;
 }
 
-.results-panel__grid {
+.results-panel__values {
   display: grid;
   grid-template-columns: auto auto;
+}
+
+.results-panel__no-plans {
+  padding: 10px;
+  background-color: #FAEEFF;
+  margin: 0 0 15px 0;
+}
+
+.results-panel__server-failed {
+  padding: 10px;
+  background-color: #FAEEFF;
+  margin: 0 0 15px 0;
 }
 
 .results-panel__cell {

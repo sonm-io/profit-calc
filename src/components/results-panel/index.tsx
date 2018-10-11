@@ -4,7 +4,7 @@ import './index.css';
 import * as cn from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
-export type TEstimateProfit = [string?, string?, string?];
+export type TEstimateProfit = [string?, string?, string?] | 'no-plans-found' | 'server-failed';
 
 interface IResultsPanelProps {
   className?: string;
@@ -31,17 +31,38 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
   );
 
   private renderValues = () =>
-    ResultsPanel.Labels.map((label, i) =>
-      this.renderValue(label, this.formatValue(this.props.values[i])),
-    );
+    <div className="results-panel__values">
+      {ResultsPanel.Labels.map((label, i) =>
+        this.renderValue(label, this.formatValue(this.props.values[i])),
+      )}
+      <p>* electricity costs are not included</p>
+    </div>
 
+  private renderNoPlansFound = () => 
+    <div className="results-panel__no-plans">
+        There are no orders for the specified configuration. Please try another configuration.
+    </div>
+
+  private renderServerFailed = () => 
+    <div className="results-panel__server-failed">
+        Server failed. Try again later or set another configuration. 
+    </div>
+
+  private renderResult = () => {
+    const values = this.props.values;
+    return values === 'no-plans-found'
+      ? this.renderNoPlansFound()
+      : values === 'server-failed'
+        ? this.renderServerFailed()
+        : this.renderValues();
+  }
+  
   public render() {
     // console.log('render ResultsPanel');
     return (
       <div className={cn('results-panel', this.props.className)}>
         <h3 className="results-panel__header">Estimated cost</h3>
-        <div className="results-panel__grid">{this.renderValues()}</div>
-        <p>* electricity costs are not included</p>
+        {this.renderResult()}
         <div className="results-panel__bottom">
           <CalculateButton
             className="results-panel__calculate-button"

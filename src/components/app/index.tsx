@@ -7,6 +7,9 @@ import { getRequest } from './request-composer';
 import { getEstimateProfit } from './response-parser';
 import { IGpu } from '../gpu-list';
 import { IBenchmarks } from '../benchmarks';
+import { LoadMask } from '../load-mask';
+import { TEstimateProfit } from '../results-panel';
+
 class App extends React.Component<{}, IAppValues> {
 
   private static defaultGpu: IGpu = Object.freeze({ 
@@ -17,9 +20,12 @@ class App extends React.Component<{}, IAppValues> {
 
   private static maxGpus = 16;
 
+  private static defaultEstimateProfit: TEstimateProfit = [undefined, undefined, undefined];
+
   constructor(props: {}) {
     super(props);
     this.state = {
+      showBenchmarks: false,
       gpuList: [{...App.defaultGpu}],
       ethhash: '0',
       equihash200: '0',
@@ -29,12 +35,16 @@ class App extends React.Component<{}, IAppValues> {
       networkIn: '50',
       networkOut: '20',
       networkPublicIp: false,
-      estimateProfit: [undefined, undefined, undefined],
+      estimateProfit: App.defaultEstimateProfit,
       isPending: false
     }
   }
 
   //#region GPU
+  private handleSwitchBenchmarkVisibility = () => {
+    this.setState({ showBenchmarks: !this.state.showBenchmarks });
+  }
+  
   private handleChangeGpuModel = (listIndex: number, selectedItem: ISelectListItem) => {
     const list = [...this.state.gpuList];
     const gpu = list[listIndex]
@@ -112,16 +122,21 @@ class App extends React.Component<{}, IAppValues> {
         redirect: "follow",
         body: JSON.stringify(data),
     }).then(response => {
-      return response.json();
-    }).then(json => {
+      return response.json(); 
+    }).then(result => {
+      const value = result.price
+        ? getEstimateProfit(result.price.perSecond)
+        : result.error === 'no plans found'
+        ? 'no-plans-found'
+        : 'server-failed';
       this.setState({ 
-        estimateProfit: getEstimateProfit(json.price.perSecond),
+        estimateProfit: value,
         isPending: false
       });
     }).catch((err) => { 
       console.log(err);
       this.setState({ 
-        estimateProfit: [undefined, undefined, undefined],
+        estimateProfit: 'server-failed',
         isPending: false
       });
     });
@@ -131,21 +146,24 @@ class App extends React.Component<{}, IAppValues> {
     // console.log('render App');
     const s = this.state;
     return (
-      <AppView
-        gpuModelsList={gpuModelsList}
-        cpuModelsList={cpuModelsList}
-        maximumCardsAllowed={App.maxGpus}
-        {...s}
-        onChangeGpuModel={this.handleChangeGpuModel}
-        onChangeBenchmarks={this.handleChangeBenchmarks}
-        onChangeGpuCount={this.handleChangeGpuCount}
-        onBlurCount={this.handleBlurCount}
-        onRemoveGpu={this.handleRemoveGpu}
-        onAddGpu={this.handleAddGpu}
-        onChange={this.handleChange}
-        onChangeCpu={this.handleChangeCpu}
-        onCalculate={this.handleCalculate}
-      />
+      <LoadMask visible={s.isPending} white>
+        <AppView
+          gpuModelsList={gpuModelsList}
+          cpuModelsList={cpuModelsList}
+          maximumCardsAllowed={App.maxGpus}
+          {...s}
+          onSwitchBenchmarkVisibility={this.handleSwitchBenchmarkVisibility}
+          onChangeGpuModel={this.handleChangeGpuModel}
+          onChangeBenchmarks={this.handleChangeBenchmarks}
+          onChangeGpuCount={this.handleChangeGpuCount}
+          onBlurCount={this.handleBlurCount}
+          onRemoveGpu={this.handleRemoveGpu}
+          onAddGpu={this.handleAddGpu}
+          onChange={this.handleChange}
+          onChangeCpu={this.handleChangeCpu}
+          onCalculate={this.handleCalculate}
+        />
+      </LoadMask>
     );
   }
 }

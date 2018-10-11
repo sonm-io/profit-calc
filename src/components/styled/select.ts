@@ -1,7 +1,10 @@
 type CSSProperties = React.CSSProperties | { [index: string]: string };
 
 export default {
-  
+  container: (base: React.CSSProperties): CSSProperties => ({
+    ...base,
+    width: '100%',
+  }),
   control: (base: React.CSSProperties, state: any): CSSProperties => {
     // console.log(base, state);
     return {
