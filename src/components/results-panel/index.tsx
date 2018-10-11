@@ -35,7 +35,7 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
       {ResultsPanel.Labels.map((label, i) =>
         this.renderValue(label, this.formatValue(this.props.values[i])),
       )}
-      <p>* electricity costs are not included</p>
+      <p className="results-panel__hint-message">* electricity costs are not included</p>
     </div>
 
   private renderNoPlansFound = () => 

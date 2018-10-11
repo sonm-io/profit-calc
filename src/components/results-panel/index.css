@@ -33,6 +33,10 @@
   font-weight: 700;
 }
 
+.results-panel__hint-message {
+  grid-column: span 2;
+}
+
 .results-panel__bottom {
   display: flex;
 }
