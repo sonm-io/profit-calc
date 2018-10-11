@@ -17,7 +17,7 @@ import { ISelectListItem } from '../types';
 import { IInputFields, IAppValues } from './types';
 import selectStyles from '../styled/select';
 
-const BenchmarksTooltip = withStyles({
+const StyledTooltip = withStyles({
   tooltip: {
     fontSize: 'unset',
   }
@@ -66,12 +66,12 @@ class AppView extends React.Component<IAppViewProps, never> {
         >
           {label}
         </Button>
-        <BenchmarksTooltip 
+        <StyledTooltip 
           title="These are a GPU performance characteristics. They are set automatically when you select a GPU card. Change them if necessary." 
           placement="right"
         >
-          <HelpOutlineIcon className="app__benchmarks-question" color="primary" />
-        </BenchmarksTooltip>
+          <HelpOutlineIcon className="app__question-mark" color="primary" />
+        </StyledTooltip>
       </React.Fragment>
     );
   };
@@ -175,6 +175,12 @@ class AppView extends React.Component<IAppViewProps, never> {
             value={p.cpuModelsList[p.cpu]}
             onChange={p.onChangeCpu}
           />
+          <StyledTooltip 
+            title="In the calculation of profitability for CPUs averaged characteristics are used" 
+            placement="bottom-end"
+          >
+            <HelpOutlineIcon className="app__question-mark" color="action" />
+          </StyledTooltip>
         </FormField>
         {this.renderRamAndStorage()}
         <h3 className="app__header">Internet connection, Mbps</h3>

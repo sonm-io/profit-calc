@@ -33,6 +33,11 @@
   flex-direction: row;
 }
 
+.app__question-mark {
+  margin: auto 0 auto 10px;
+  cursor: pointer;
+}
+
 .app__main-panel {
   width: 100%;
 }
@@ -44,11 +49,6 @@
 
 .app__switch-benchmarks-link {
   margin: 0 0 0 -16px !important;
-}
-
-.app__benchmarks-question {
-  margin: auto 0;
-  cursor: pointer;
 }
 
 .app__gpu-message {
@@ -65,6 +65,7 @@
 
 .app__cpu-select {
   width: 100%;
+  display: flex;
 }
 
 .app__ram-field {
