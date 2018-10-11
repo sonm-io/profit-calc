@@ -149,7 +149,7 @@ class AppView extends React.Component<IAppViewProps, never> {
         <GpuList {...p} />
         
         <div className="app__gpu-bottom-panel">
-          {this.renderBenchmarksVisibilityTrigger()}
+          {p.gpuList.length > 0 ? this.renderBenchmarksVisibilityTrigger() : null}
           <span className="app__gpu-message">
             {!this.allowAddCard ? `Maximum ${p.maximumCardsAllowed} cards allowed` : null}
           </span>
