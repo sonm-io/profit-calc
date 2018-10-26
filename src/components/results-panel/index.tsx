@@ -61,7 +61,7 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
     // console.log('render ResultsPanel');
     return (
       <div className={cn('results-panel', this.props.className)}>
-        <h3 className="results-panel__header">Estimated cost</h3>
+        <h3 className="results-panel__header">Price estimate</h3>
         {this.renderResult()}
         <div className="results-panel__bottom">
           <CalculateButton
