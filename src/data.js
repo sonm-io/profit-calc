@@ -42,7 +42,7 @@ const gpuList = [
   {
     name: 'NVidia GeForce 1080',
     benchmarks: {
-      'gpu-eth-hashrate': '23300000',
+      'gpu-eth-hashrate': '30000000',
       'gpu-cash-hashrate': '550',
       'gpu-mem': '8500000000',
     },
