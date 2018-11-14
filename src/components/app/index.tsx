@@ -36,7 +36,8 @@ class App extends React.Component<{}, IAppValues> {
       networkOut: '20',
       networkPublicIp: false,
       estimateProfit: App.defaultEstimateProfit,
-      isPending: false
+      isPending: false,
+      showTrySonm: false
     }
   }
 
@@ -131,13 +132,15 @@ class App extends React.Component<{}, IAppValues> {
         : 'server-failed';
       this.setState({ 
         estimateProfit: value,
-        isPending: false
+        isPending: false,
+        showTrySonm: !!result.price
       });
     }).catch((err) => { 
       console.log(err);
       this.setState({ 
         estimateProfit: 'server-failed',
-        isPending: false
+        isPending: false,
+        showTrySonm: false,
       });
     });
   }

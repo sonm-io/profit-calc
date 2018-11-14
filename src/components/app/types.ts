@@ -17,4 +17,5 @@ export interface IAppValues extends IInputFields {
   cpu: number;
   estimateProfit: TEstimateProfit;
   isPending: boolean;
+  showTrySonm: boolean;
 }

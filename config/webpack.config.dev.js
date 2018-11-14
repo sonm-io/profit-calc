@@ -52,7 +52,7 @@ module.exports = {
     // We include the app code last so that if there is a runtime error during
     // initialization, it doesn't blow up the WebpackDevServer client, and
     // changing JS code would still trigger a refresh.
-    'public/fonts.css'
+    'public/fonts.css',
   ],
   output: {
     // Add /* filename */ comments to generated require()s in the output.
@@ -76,7 +76,7 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/253
     modules: ['node_modules', paths.appNodeModules].concat(
       // It is guaranteed to exist because we tweak it in `env.js`
-      process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
+      process.env.NODE_PATH.split(path.delimiter).filter(Boolean),
     ),
     // These are the reasonable defaults supported by the Node ecosystem.
     // We also include JSX as a common component filename extension to support
@@ -97,7 +97,6 @@ module.exports = {
       '.jsx',
     ],
     alias: {
-      
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -146,7 +145,6 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
               compact: true,
             },
           },
@@ -217,6 +215,24 @@ module.exports = {
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
             },
+          },
+          {
+            test: /\.svg$/,
+            use: [
+              'babel-loader',
+              {
+                loader: 'react-svg-loader',
+                options: {
+                  svgo: {
+                    plugins: [{ removeTitle: false }],
+                    floatPrecision: 2,
+                  },
+                  options: {
+                    jsx: true, // true outputs JSX tags
+                  },
+                },
+              },
+            ],
           },
         ],
       },
