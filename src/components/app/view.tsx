@@ -201,6 +201,7 @@ class AppView extends React.Component<IAppViewProps, never> {
             className="app__results-panel"
             values={p.estimateProfit}
             onCalculate={!p.isPending ? this.props.onCalculate : undefined}
+            showTrySonm={p.showTrySonm}
           />
         </div>
       </div>

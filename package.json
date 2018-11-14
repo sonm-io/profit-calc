@@ -64,6 +64,7 @@
     "cross-env": "^5.2.0",
     "react-docgen-typescript": "^1.8.1",
     "react-styleguidist": "^7.3.8",
+    "react-svg-loader": "^2.1.0",
     "typescript": "^3.0.3"
   },
   "jest": {

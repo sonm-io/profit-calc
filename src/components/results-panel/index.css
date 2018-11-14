@@ -1,7 +1,14 @@
 .results-panel {
-  width: 300px;
-  padding: 24px;
+  width: 400px;
   background-color: #f2f7fa;
+  display: flex;
+  flex-direction: column;
+}
+
+/* <Main */
+
+.results-panel__main {
+  padding: 24px;
 }
 
 .results-panel__header {
@@ -37,7 +44,7 @@
   grid-column: span 2;
 }
 
-.results-panel__bottom {
+.results-panel__calculate {
   display: flex;
 }
 
@@ -55,3 +62,37 @@
 .results-panel__get-started-link:hover {
   text-decoration: underline;
 }
+
+/* Main/> */
+
+/* <Try Sonm */
+
+.results-panel__try-sonm {
+  padding: 24px;
+  background: #6522ff;
+  color: white;
+  display: flex;
+}
+
+.results-panel__try-left-block {
+  width: 100%;
+}
+
+.results-panel__try-header {
+  font-weight: 900;
+}
+
+.results-panel__try-link {
+  text-decoration: none;
+  color: white;
+}
+
+.results-panel__try-link:hover {
+  text-decoration: underline;
+}
+
+.results-panel__try-link-svg {
+  color: white !important;
+}
+
+/* Try Sonm/> */

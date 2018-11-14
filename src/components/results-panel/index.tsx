@@ -3,6 +3,7 @@ import * as React from 'react';
 import './index.css';
 import * as cn from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+import { DownImg } from './down';
 
 export type TEstimateProfit = [string?, string?, string?] | 'no-plans-found' | 'server-failed';
 
@@ -10,6 +11,7 @@ interface IResultsPanelProps {
   className?: string;
   values: TEstimateProfit;
   onCalculate?: () => void;
+  showTrySonm: boolean;
 }
 
 const CalculateButton = withStyles({
@@ -20,6 +22,12 @@ const CalculateButton = withStyles({
 
 export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never> {
   private static Labels = ['1 hour', '24 hours', '30 days'];
+
+  private handleTrySonmClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const frame = document.getElementById('try-sonm-frame') as any;
+    frame.src = "https://sonm-public-store.ams3.cdn.digitaloceanspaces.com/sonmos/sonmos.img";
+    debugger;
+  }
 
   private formatValue = (value?: string) => (value === undefined ? '\u2014' : `$ ${value}`);
 
@@ -57,13 +65,12 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
         : this.renderValues();
   }
   
-  public render() {
-    // console.log('render ResultsPanel');
+  private renderMain() {
     return (
-      <div className={cn('results-panel', this.props.className)}>
+      <div className="results-panel__main">
         <h3 className="results-panel__header">Price estimate</h3>
         {this.renderResult()}
-        <div className="results-panel__bottom">
+        <div className="results-panel__calculate">
           <CalculateButton
             className="results-panel__calculate-button"
             disabled={this.props.onCalculate === undefined}
@@ -73,14 +80,49 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
           >
             Calculate
           </CalculateButton>
-          <a
+          {/* <a
             className="results-panel__get-started-link"
             target="_blank"
             href="https://docs.sonm.com/getting-started"
           >
             Try it!
+          </a> */}
+        </div>
+      </div>
+    );
+  }
+
+  private renderTrySonm () {
+    return (
+      <div className="results-panel__try-sonm">
+        <div className="results-panel__try-left-block">
+          <div className="results-panel__try-header">Sounds promising, huh?</div>
+          <a 
+            className="results-panel__try-link"
+            target="_brank"
+            href="https://sonm.com/sonm-os-download"
+            onClick={this.handleTrySonmClick}            
+          >
+            Try SONM OS.
           </a>
         </div>
+        <a
+          className="results-panel__try-link-svg"
+          target="_brank"
+          href="https://sonm.com/sonm-os-download"
+          onClick={this.handleTrySonmClick}
+        >
+          <DownImg />
+        </a>
+      </div>
+    );
+  }
+
+  public render () {
+    return (
+      <div className={cn('results-panel', this.props.className)}>
+        {this.renderMain()}
+        {this.props.showTrySonm ? this.renderTrySonm() : null}
       </div>
     );
   }
