@@ -26,7 +26,6 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
   private handleTrySonmClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     const frame = document.getElementById('try-sonm-frame') as any;
     frame.src = "https://sonm-public-store.ams3.cdn.digitaloceanspaces.com/sonmos/sonmos.img";
-    debugger;
   }
 
   private formatValue = (value?: string) => (value === undefined ? '\u2014' : `$ ${value}`);
@@ -94,27 +93,18 @@ export class ResultsPanel extends React.PureComponent<IResultsPanelProps, never>
 
   private renderTrySonm () {
     return (
-      <div className="results-panel__try-sonm">
+      <a
+        className="results-panel__try"
+        target="_brank"
+        href="https://sonm.com/sonm-os-download"
+        onClick={this.handleTrySonmClick}            
+      >
         <div className="results-panel__try-left-block">
           <div className="results-panel__try-header">Sounds promising, huh?</div>
-          <a 
-            className="results-panel__try-link"
-            target="_brank"
-            href="https://sonm.com/sonm-os-download"
-            onClick={this.handleTrySonmClick}            
-          >
-            Try SONM OS.
-          </a>
+          <div>Try SONM OS.</div>
         </div>
-        <a
-          className="results-panel__try-link-svg"
-          target="_brank"
-          href="https://sonm.com/sonm-os-download"
-          onClick={this.handleTrySonmClick}
-        >
-          <DownImg />
-        </a>
-      </div>
+        <DownImg />
+      </a>
     );
   }
 

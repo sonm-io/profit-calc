@@ -67,7 +67,8 @@
 
 /* <Try Sonm */
 
-.results-panel__try-sonm {
+.results-panel__try {
+  text-decoration: none;
   padding: 24px;
   background: #6522ff;
   color: white;
@@ -80,19 +81,6 @@
 
 .results-panel__try-header {
   font-weight: 900;
-}
-
-.results-panel__try-link {
-  text-decoration: none;
-  color: white;
-}
-
-.results-panel__try-link:hover {
-  text-decoration: underline;
-}
-
-.results-panel__try-link-svg {
-  color: white !important;
 }
 
 /* Try Sonm/> */
