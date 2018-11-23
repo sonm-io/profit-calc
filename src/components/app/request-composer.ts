@@ -169,23 +169,23 @@ const getStorage = (s: IAppValues) => {
   };
 }
 
-export const getRequest = (s: IAppValues) => {
+export const getRequest = (src: IAppValues) => {
+  const s = {...src};
   const isAti = s.gpuList.find(i => 
     i.model !== undefined 
     && i.model.label.indexOf('ATI') > -1
     ) !== undefined;
-  const network = getNetwork(s);
   if (isAti) {
-    const v = 1 * 1024 * 1024
-    network.in = v;
-    network.out = v;
+    const v = (2).toString();
+    s.networkIn = v;
+    s.networkOut = v;
   }
   return {
     "Devices": {
       "CPU": getCpuBenchmarks(cpuList[s.cpu].benchmarks),
       "GPUs": getGpus(s.gpuList),
       "RAM": getRam(s),
-      "network": network,
+      "network": getNetwork(s),
       "storage": getStorage(s)
     }
   }
