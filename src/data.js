@@ -1,13 +1,5 @@
 const gpuList = [
   {
-    name: 'NVidia GeForce 1050Ti',
-    benchmarks: {
-      'gpu-eth-hashrate': '13900000',
-      'gpu-cash-hashrate': '180',
-      'gpu-mem': '3100000000',
-    },
-  },
-  {
     name: 'NVidia GeForce 1060 3GB',
     benchmarks: {
       'gpu-eth-hashrate': '20000000',
@@ -53,6 +45,38 @@ const gpuList = [
       'gpu-eth-hashrate': '35000000',
       'gpu-cash-hashrate': '685',
       'gpu-mem': '11700000000',
+    },
+  },
+  {
+    name: 'NVidia GeForce 2060',
+    benchmarks: {
+      'gpu-eth-hashrate': '25000000',
+      'gpu-cash-hashrate': '480',
+      'gpu-mem': '600000000',
+    },
+  },
+  {
+    name: 'NVidia GeForce 2070',
+    benchmarks: {
+      'gpu-eth-hashrate': '33000000',
+      'gpu-cash-hashrate': '550',
+      'gpu-mem': '800000000',
+    },
+  },
+  {
+    name: 'NVidia GeForce 2080',
+    benchmarks: {
+      'gpu-eth-hashrate': '35500000',
+      'gpu-cash-hashrate': '700',
+      'gpu-mem': '8000000000',
+    },
+  },
+  {
+    name: 'NVidia GeForce 2080Ti',
+    benchmarks: {
+      'gpu-eth-hashrate': '50000000',
+      'gpu-cash-hashrate': '850',
+      'gpu-mem': '11000000000',
     },
   },
   {
