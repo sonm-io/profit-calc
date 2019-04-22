@@ -79,46 +79,6 @@ const gpuList = [
       'gpu-mem': '11000000000',
     },
   },
-  {
-    name: 'ATI Radeon RX 380',
-    benchmarks: {
-      'gpu-eth-hashrate': '20000000',
-      'gpu-cash-hashrate': '205',
-      'gpu-mem': '4300000000',
-    },
-  },
-  {
-    name: 'ATI Radeon RX 470',
-    benchmarks: {
-      'gpu-eth-hashrate': '26000000',
-      'gpu-cash-hashrate': '260',
-      'gpu-mem': '4300000000',
-    },
-  },
-  {
-    name: 'ATI Radeon RX 480',
-    benchmarks: {
-      'gpu-eth-hashrate': '29500000',
-      'gpu-cash-hashrate': '290',
-      'gpu-mem': '8500000000',
-    },
-  },
-  {
-    name: 'ATI Radeon RX 570',
-    benchmarks: {
-      'gpu-eth-hashrate': '27900000',
-      'gpu-cash-hashrate': '260',
-      'gpu-mem': '4300000000',
-    },
-  },
-  {
-    name: 'ATI Radeon RX 580',
-    benchmarks: {
-      'gpu-eth-hashrate': '30200000',
-      'gpu-cash-hashrate': '290',
-      'gpu-mem': '8500000000',
-    },
-  },
 ];
 
 const cpuList = [
